@@ -6,10 +6,10 @@
 
 import unittest
 
-from neo_python_core import neo_python_core
+from neocore import neocore
 
 
-class TestNeo_python_core(unittest.TestCase):
+class Testneocore(unittest.TestCase):
     """Tests for `neo-python-core` package."""
 
     def setUp(self):

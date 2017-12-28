@@ -31,7 +31,7 @@ setup(
     author="City of Zion",
     author_email='chris@cityofzion.io',
     url='https://github.com/CityOfZion/neo-python-core',
-    packages=find_packages(include=['neo_python_core']),
+    packages=find_packages(include=['neocore']),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",

@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/CityOfZion/neo_python_core/issues.
+Report bugs at https://github.com/CityOfZion/neo-python-core/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/CityOfZion/neo_python_core/issues.
+The best way to send feedback is to file an issue at https://github.com/CityOfZion/neo-python-core/issues.
 
 If you are proposing a feature:
 
@@ -57,17 +57,17 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `neo_python_core` for local development.
+Ready to contribute? Here's how to set up `neo-python-core` for local development.
 
-1. Fork the `neo_python_core` repo on GitHub.
+1. Fork the `neo-python-core` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/neo_python_core.git
+    $ git clone git@github.com:CityOfZion/neo-python-core.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv neo_python_core
-    $ cd neo_python_core/
+    $ mkvirtualenv neo-python-core
+    $ cd neo-python-core/
     $ python setup.py develop
 
 4. Create a branch for local development::
@@ -78,7 +78,7 @@ Ready to contribute? Here's how to set up `neo_python_core` for local developmen
 
 5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
-    $ flake8 neo_python_core tests
+    $ flake8 neocore tests
     $ python setup.py test or py.test
     $ tox
 
@@ -111,4 +111,4 @@ Tips
 To run a subset of tests::
 
 
-    $ python -m unittest tests.test_neo_python_core
+    $ python -m unittest tests.test_neocore
