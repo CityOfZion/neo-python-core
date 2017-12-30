@@ -31,5 +31,4 @@ Linting and testing the code
 
     $ make lint
     $ make test
-    $ make test-all
     $ make coverage

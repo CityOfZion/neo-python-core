@@ -80,7 +80,6 @@ Ready to contribute? Here's how to set up `neo-python-core` for local developmen
 
     $ flake8 neocore tests
     $ python setup.py test or py.test
-    $ tox
 
    To get flake8 and tox, just pip install them into your virtualenv.
 
