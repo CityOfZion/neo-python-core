@@ -2,15 +2,13 @@
 neo-python-core
 ===============
 
-Core functionality of [neo-python](https://github.com/CityOfZion/neo-python).
+Core functionality of `neo-python <https://github.com/CityOfZion/neo-python>`_.
 
 
-## Getting started
+Getting started
+---------------
 
-You need [Python 3.5](https://www.python.org/downloads/release/python-354/).
-
-
-### Virtual Environment
+You need `Python 3.5 <https://www.python.org/downloads/release/python-354/>`_.
 
 Create a Python 3 virtual environment and activate it:
 
@@ -26,11 +24,12 @@ Then install the requirements:
     $ pip install -e .
     $ pip install -r requirements_dev.txt
 
-### Linting and testing the code
+Linting and testing the code
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
-    make lint
-    make test
-    make test-all
-    make coverage
+    $ make lint
+    $ make test
+    $ make test-all
+    $ make coverage
