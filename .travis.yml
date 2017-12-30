@@ -18,7 +18,7 @@ after_success: coveralls
 deploy:
   true:
     tags: true
-    python: 2.7
+    python: 3.5
     repo: CityOfZion/neo-python-core
   distributions: sdist bdist_wheel
   password:
