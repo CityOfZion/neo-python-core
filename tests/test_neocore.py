@@ -6,7 +6,7 @@
 
 import unittest
 
-from neocore import neocore
+import neocore
 
 
 class Testneocore(unittest.TestCase):
