@@ -17,7 +17,7 @@ install_reqs = parse_requirements('requirements.txt', session=PipSession())
 reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
-    name='neo-python-core',
+    name='neocore',
     python_requires='>=3.4, <3.6',
     version='0.1.2',
     description="Core functionality of neo-python",
@@ -30,7 +30,7 @@ setup(
     install_requires=reqs,
     license="MIT license",
     zip_safe=False,
-    keywords='neo-python-core neo, python, node',
+    keywords='neocore, neo, python, node',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
