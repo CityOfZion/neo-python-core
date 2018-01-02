@@ -2,8 +2,13 @@
 neo-python-core
 ===============
 
-Core functionality of `neo-python <https://github.com/CityOfZion/neo-python>`_.
+Basic library for working with NEO related data in Python, without database
+dependencies.
 
+Includes datatypes like ``UInt160``, ``KeyPair``, and basic string to address and
+address to `UInt160` methods.
+
+Used by `neo-python <https://github.com/CityOfZion/neo-python>`_.
 
 Getting started
 ---------------
