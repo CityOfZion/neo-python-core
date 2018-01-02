@@ -10,10 +10,11 @@ install:
   - pip install coveralls
 
 script:
-  - python -m unittest -v
+  - coverage run --source neocore setup.py test
   - pycodestyle neocore tests
 
-after_success: coveralls
+after_success:
+ - coveralls
 
 deploy:
   true:
