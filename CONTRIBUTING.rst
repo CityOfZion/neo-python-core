@@ -62,7 +62,7 @@ Ready to contribute? Here's how to set up `neo-python-core` for local developmen
 1. Fork the `neo-python-core` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:CityOfZion/neo-python-core.git
+    $ git clone git@github.com:<your-name>/neo-python-core.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
