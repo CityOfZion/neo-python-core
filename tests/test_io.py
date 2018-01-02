@@ -10,6 +10,7 @@ from neocore.IO.Mixins import SerializableMixin
 import neocore.IO.BinaryWriter as BinaryWriter
 from neocore.IO.BinaryReader import BinaryReader
 
+
 class SerializableMixinTestCase(TestCase):
     def test_serializable_mixin(self):
         m = SerializableMixin()
@@ -21,8 +22,10 @@ class SerializableMixinTestCase(TestCase):
 def get_br(stream_data):
     return BinaryReader(BytesIO(stream_data))
 
+
 def get_bw(stream_data):
     return BinaryWriter.BinaryWriter(BytesIO(stream_data))
+
 
 class BinaryReaderTestCase(TestCase):
     def setUp(self):
@@ -91,6 +94,7 @@ class BinaryReaderTestCase(TestCase):
         res = x.Read2000256List()
         for item in res:
             self.assertEqual(item, val)
+
 
 class BinaryWriterTestCase(TestCase):
     def test_various(self):
