@@ -8,7 +8,7 @@ Library for working with NEO related data in Python, without database dependenci
 
 Currently in alpha development!
 
-* Includes datatypes like ``UInt160``, ``KeyPair``, and basic string to address and address to `UInt160` methods.
+* Includes datatypes like ``UInt160``, ``KeyPair``, and basic string to address and address to ``UInt160`` methods.
 * Used by `neo-python <https://github.com/CityOfZion/neo-python>`_.
 * https://pypi.python.org/pypi/neocore
 
