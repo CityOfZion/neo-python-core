@@ -114,6 +114,28 @@ class Fixed8TestCase(TestCase):
         self.assertEqual(Fixed8.TryParse("foo"), None)
         self.assertEqual(Fixed8.TryParse(-1, require_positive=True), None)
 
+    def test_fixed8_ceil(self):
+        f8 = Fixed8.FromDecimal(4.6)
+        f8_ceil = f8.Ceil()
+
+        self.assertEqual(f8_ceil, Fixed8.FromDecimal(5))
+
+        f8 = Fixed8.FromDecimal(4.00000001)
+        f8_ceil = f8.Ceil()
+
+        self.assertEqual(f8_ceil, Fixed8.FromDecimal(5))
+
+    def test_fixed8_floor(self):
+        f8 = Fixed8.FromDecimal(4.9999999999)
+        f8_ceil = f8.Floor()
+
+        self.assertEqual(f8_ceil, Fixed8.FromDecimal(4))
+
+        f8 = Fixed8.FromDecimal(4.2)
+        f8_ceil = f8.Floor()
+
+        self.assertEqual(f8_ceil, Fixed8.FromDecimal(4))
+
     def test_dunder_methods(self):
         f8_1 = Fixed8(1)
         f8_2 = Fixed8(2)
