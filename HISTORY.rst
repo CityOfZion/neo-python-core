@@ -2,6 +2,11 @@
 History
 =======
 
+0.2.4 (2018-01-03)
+------------------
+* Bugfix for deploying from Travis to PyPI/neocore
+
+
 0.2.3 (2018-01-03)
 ------------------
 * Bugfix for BinaryWriter (`PR #13 <https://github.com/CityOfZion/neo-python-core/pull/13>`_)
