@@ -2,6 +2,11 @@
 History
 =======
 
+0.2.3 (2018-01-03)
+------------------
+* Bugfix for BinaryWriter (`PR #13 <https://github.com/CityOfZion/neo-python-core/pull/13>`_)
+
+
 0.2.1 (2018-01-02)
 ------------------
 * Added UInt*, Fixed8 and neo.IO.Binary* (`PR #9 <https://github.com/CityOfZion/neo-python-core/pull/9>`_)
