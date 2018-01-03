@@ -20,9 +20,16 @@ script:
   - git checkout origin/development -b development
   - python3 -m venv venv
   - source venv/bin/activate
-  - pip install -r requirements.txt
-  - yes | pip uninstall neocore
-  - pip install -e ../
+  - which python3
+  - which pip
+  - which pip3
+  - python -V
+  - python3 -V
+  - pip -V
+  - pip3 -V
+  - pip3 install -r requirements.txt
+  - yes | pip3 uninstall neocore
+  - pip3 install -e ../
   - coverage run -m unittest discover neo
 
 after_success:
