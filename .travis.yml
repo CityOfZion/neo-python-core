@@ -4,6 +4,12 @@ language: python
 python:
   - 3.5
 
+addons:
+  apt:
+    packages:
+    - libleveldb-dev
+    - libsqlite3-dev
+
 install:
   - pip install -r requirements.txt
   - pip install -r requirements_dev.txt
@@ -19,19 +25,9 @@ script:
   - cd neo-python
   - pwd
   - git checkout origin/development -b development
-#   - python3 -m venv venv
-#   - source venv/bin/activate
-  - which python
-  - which python3
-  - which pip
-  - which pip3.5
-  - python -V
-  - python3 -V
-  - pip -V
-  - pip3.5 -V
-  - pip3.5 install -r requirements.txt
-  - yes | pip3.5 uninstall neocore
-  - pip3.5 install -e ../
+  - pip install -r requirements.txt
+  - yes | pip uninstall neocore
+  - pip install -e ../
   - coverage run -m unittest discover neo
 
 after_success:
