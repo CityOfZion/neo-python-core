@@ -4,14 +4,30 @@ language: python
 python:
   - 3.5
 
+addons:
+  apt:
+    packages:
+    - libleveldb-dev
+    - libsqlite3-dev
+
 install:
   - pip install -r requirements.txt
   - pip install -r requirements_dev.txt
   - pip install coveralls
 
 script:
+  # run internal tests
   - coverage run --source neocore setup.py test
   - pycodestyle neocore tests
+
+  # now test the upstream neo-python dev branch with the current neocore code
+  - git clone https://github.com/CityOfZion/neo-python.git
+  - cd neo-python
+  - git checkout origin/development -b development
+  - pip install -r requirements.txt
+  - yes | pip uninstall neocore
+  - pip install -e ../
+  - python -m unittest discover neo
 
 after_success:
  - coveralls
