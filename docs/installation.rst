@@ -12,7 +12,7 @@ To install neo-python-core, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install neo-python-core
+    $ pip install neocore
 
 This is the preferred method to install neo-python-core, as it will always install the most recent stable release.
 
