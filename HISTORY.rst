@@ -2,8 +2,8 @@
 History
 =======
 
-0.2.4 (2018-01-03)
-------------------
+0.2.4 + 0.2.5 (2018-01-03)
+--------------------------
 * Bugfix for deploying from Travis to PyPI/neocore
 
 
