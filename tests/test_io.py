@@ -81,7 +81,7 @@ class BinaryReaderTestCase(TestCase):
 
     def test_varint(self):
         self.assertEqual(get_br(b"").ReadVarInt(), 0)
-        self.assertEqual(get_br(b"\xfd1234").ReadVarInt(), 12849)
+        self.assertEqual(get_br(b"\xfd12").ReadVarInt(), 12849)
         self.assertEqual(get_br(b"\xfe1234").ReadVarInt(), 875770417)
         self.assertEqual(get_br(b"\xff12345678").ReadVarInt(), 4050765991979987505)
 
@@ -230,7 +230,7 @@ class BinaryWriterTestCase(TestCase):
         stream, bw = bw_setup()
         bw.WriteVarInt(0xffffff)
         stream.seek(0)
-        self.assertEqual(stream.readline(), b'\xfd\xff\xff\xff\x00')
+        self.assertEqual(stream.readline(), b'\xfe\xff\xff\xff\x00')
 
         stream, bw = bw_setup()
         bw.WriteVarInt(0xFFFFFFFFFF)

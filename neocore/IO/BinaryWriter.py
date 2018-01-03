@@ -332,8 +332,7 @@ class BinaryWriter(object):
             return self.WriteUInt16(value, endian)
 
         elif value <= 0xFFFFFFFF:
-            self.WriteByte(0xfd)
-            # self.WriteByte(0xfe)  # Bugfix proposed by https://github.com/CityOfZion/neo-python/pull/145
+            self.WriteByte(0xfe)
             return self.WriteUInt32(value, endian)
 
         else:
