@@ -1,16 +1,17 @@
+Library for working with NEO related data in Python, without database dependencies.
+
 .. image:: https://travis-ci.org/CityOfZion/neo-python-core.svg?branch=master
         :target: https://travis-ci.org/CityOfZion/neo-python-core
 
 .. image:: https://coveralls.io/repos/github/CityOfZion/neo-python-core/badge.svg
         :target: https://coveralls.io/github/CityOfZion/neo-python-core
 
-Library for working with NEO related data in Python, without database dependencies.
-
-Currently in alpha development!
 
 * Includes datatypes like ``UInt160``, ``KeyPair``, and basic string to address and address to ``UInt160`` methods.
 * Used by `neo-python <https://github.com/CityOfZion/neo-python>`_.
 * https://pypi.python.org/pypi/neocore
+
+Currently in alpha development.
 
 
 Getting started
@@ -51,3 +52,18 @@ Useful commands
     $ make lint
     $ make test
     $ make coverage
+
+
+Release checklist
+^^^^^^^^^^^^^^^^^
+
+(Only for admins)
+
+Releasing a new version on GitHub automatically uploads this release to PyPI.
+This is a checklist for releasing a new version:
+
+* Update ``HISTORY.rst`` with the new version number and the changes
+* Git commit: ``git commit -am "Updated HISTORY.rst for release```
+* Update the version number and create the tag: ``bumpversion patch|minor|major``
+* Update patch version ``bumpversion --no-tag patch``
+* Push to GitHub: ``git push && git push --tags``
