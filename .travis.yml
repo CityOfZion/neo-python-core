@@ -17,19 +17,21 @@ script:
   # now test the upstream neo-python dev branch with the current neocore code
   - git clone https://github.com/CityOfZion/neo-python.git
   - cd neo-python
+  - pwd
   - git checkout origin/development -b development
-  - python3 -m venv venv
-  - source venv/bin/activate
+#   - python3 -m venv venv
+#   - source venv/bin/activate
+  - which python
   - which python3
   - which pip
-  - which pip3
+  - which pip3.5
   - python -V
   - python3 -V
   - pip -V
-  - pip3 -V
-  - pip3 install -r requirements.txt
-  - yes | pip3 uninstall neocore
-  - pip3 install -e ../
+  - pip3.5 -V
+  - pip3.5 install -r requirements.txt
+  - yes | pip3.5 uninstall neocore
+  - pip3.5 install -e ../
   - coverage run -m unittest discover neo
 
 after_success:
