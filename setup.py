@@ -19,7 +19,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 setup(
     name='neocore',
     python_requires='>=3.4, <3.6',
-    version='0.2.2-dev',
+    version='0.2.2',
     description="Core functionality of neo-python",
     long_description=readme + '\n\n' + history,
     author="City of Zion",
