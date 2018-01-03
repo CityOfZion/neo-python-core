@@ -10,8 +10,20 @@ install:
   - pip install coveralls
 
 script:
+  # run internal tests
   - coverage run --source neocore setup.py test
   - pycodestyle neocore tests
+
+  # now test the upstream neo-python dev branch with the current neocore code
+  - git clone https://github.com/CityOfZion/neo-python.git
+  - cd neo-python
+  - git checkout origin/development -b development
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
+  - yes | pip uninstall neocore
+  - pip install -e ../
+  - coverage run -m unittest discover neo
 
 after_success:
  - coveralls
