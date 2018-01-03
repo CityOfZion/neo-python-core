@@ -62,8 +62,20 @@ Release checklist
 Releasing a new version on GitHub automatically uploads this release to PyPI.
 This is a checklist for releasing a new version:
 
-* Update ``HISTORY.rst`` with the new version number and the changes
-* Git commit: ``git commit -am "Updated HISTORY.rst for release```
-* Update the version number and create the tag: ``bumpversion patch|minor|major``
-* Update patch version ``bumpversion --no-tag patch``
-* Push to GitHub: ``git push && git push --tags``
+.. code-block:: console
+
+    # In case you want to increase the version number again (eg. scope changed from patch to minor):
+    bumpversion --no-tag patch|minor|major
+
+    # Update ``HISTORY.rst`` with the new version number and the changes and commit this
+    vi HISTORY.rst
+    git commit -m "Updated HISTORY.rst" HISTORY.rst
+
+    # Set the release version number and create the tag
+    bumpversion release
+
+    # Increase patch number and add `-dev`
+    bumpversion --no-tag patch
+
+    # Push to GitHub, which also updates the PyPI package
+    git push && git push --tags
