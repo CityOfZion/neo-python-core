@@ -15,23 +15,6 @@ import binascii
 import base58
 
 
-def hash_to_wallet_address(ba, address_version=23):
-    """
-    Translate script hash into the public address.
-
-    Args:
-        ba (bytes): script hash.
-        address_version: fixed to 23. Defined in https://github.com/neo-project/neo/blob/master/neo/protocol.json
-
-    Returns:
-        str: base58 encoded string representing the wallet address.
-    """
-    sb = bytearray([23]) + ba
-    c256 = bin_dbl_sha256(sb)[0:4]
-    outb = sb + bytearray(c256)
-    return base58.b58encode(bytes(outb))
-
-
 long = int
 
 
@@ -75,7 +58,7 @@ def redeem_to_scripthash(redeem):
     Returns:
         bytes: script hash.
     """
-    return binascii.hexlify(bin_hash160(redeem))
+    return bin_hash160Bytes(redeem)
 
 
 def scripthash_to_address(scripthash):
@@ -88,7 +71,10 @@ def scripthash_to_address(scripthash):
     Returns:
         str: base58 encoded string representing the wallet address.
     """
-    return bin_to_b58check(binascii.unhexlify(scripthash), 23)
+    sb = bytearray([23]) + scripthash
+    c256 = bin_dbl_sha256(sb)[0:4]
+    outb = sb + bytearray(c256)
+    return base58.b58encode(bytes(outb))
 
 
 def pubkey_to_pubhash(pubkey):

@@ -31,23 +31,33 @@ class HelperTestCase(TestCase):
         b = Helper.random_key()
         self.assertNotEqual(a, b)
 
-    def test_hash_to_address(self):
-        expected_address = 'AStZHy8E6StCqYQbzMqi4poH7YNDHQKxvt' #taken from neon-wallet-react-native test cases
-        script_hash = binascii.unhexlify('79ecf967a02f9bdbd147fc97b18efd7877d27f78')
-        result = Helper.hash_to_wallet_address(script_hash)
-        self.assertEqual(result, expected_address)
-
-
     def test_double_sha256(self):
         expected_hash = '4f8b42c22dd3729b519ba6f68d2da7cc5b2d606d05daed5ad5128cc03e6c6358' #https://www.dlitz.net/crypto/shad256-test-vectors/
         result = Helper.double_sha256(b'abc')
         self.assertEqual(result, expected_hash)
 
-    def test_publickey_to_redeemscript(self):
+    def test_publickey_to_redeemscript_to_scripthash_to_address(self):
         # NEP 2 testvector
         expected_redeemscript = binascii.unhexlify('21026241e7e26b38bb7154b8ad49458b97fb1c4797443dc921c5ca5774f511a2bbfcac')
+        expected_scripthash = binascii.unhexlify('79ecf967a02f9bdbd147fc97b18efd7877d27f78')
+        expected_address = 'AStZHy8E6StCqYQbzMqi4poH7YNDHQKxvt'
+
         priv_key = KeyPair.PrivateKeyFromWIF('L44B5gGEpqEDRS9vVPz7QT35jcBG2r3CZwSwQ4fCewXAhAhqGVpP')
         kp = KeyPair(priv_key=priv_key)
         pub_bytes = kp.PublicKey.encode_point(True)
-        result = Helper.pubkey_to_redeem(pub_bytes)
-        self.assertEqual(result, expected_redeemscript)
+        redeemscript = Helper.pubkey_to_redeem(pub_bytes)
+        scripthash = Helper.redeem_to_scripthash(redeemscript)
+        address = Helper.scripthash_to_address(scripthash)
+
+        self.assertEqual(redeemscript, expected_redeemscript)
+        self.assertEqual(scripthash, expected_scripthash)
+        self.assertEqual(address, expected_address)
+
+    def test_publickey_to_scripthash(self):
+        expected_scripthash = binascii.unhexlify('79ecf967a02f9bdbd147fc97b18efd7877d27f78')
+        priv_key = KeyPair.PrivateKeyFromWIF('L44B5gGEpqEDRS9vVPz7QT35jcBG2r3CZwSwQ4fCewXAhAhqGVpP')
+        kp = KeyPair(priv_key=priv_key)
+        pub_bytes = kp.PublicKey.encode_point(True)
+
+        result = Helper.pubkey_to_pubhash(pub_bytes)
+        self.assertEqual(result, expected_scripthash)
