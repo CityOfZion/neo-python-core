@@ -9,3 +9,7 @@ pycodestyle==2.3.1
 Sphinx==1.6.5
 cryptography==2.1.4
 PyYAML==3.12
+ecdsa==0.13
+base58==0.2.5
+bitcoin==1.1.42
+mpmath==1.0.0
