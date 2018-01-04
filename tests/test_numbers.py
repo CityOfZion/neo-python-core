@@ -236,6 +236,10 @@ class BigIntegerTestCase(TestCase):
         integer2 = BigInteger.from_bytes(b2ba, 'little')
         self.assertEqual(integer2, 65436)
 
+        b3 = BigInteger(128)
+        b3ba = b3.ToByteArray()
+        self.assertEqual(b3ba, b'\x80\x00')
+
     def test_big_integer_frombytes(self):
         b1 = BigInteger(8972340892734890723)
         ba = b1.ToByteArray()
