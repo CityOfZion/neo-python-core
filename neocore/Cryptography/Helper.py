@@ -62,7 +62,7 @@ def pubkey_to_redeem(pubkey):
     Returns:
         bytes: redeemscript.
     """
-    return binascii.unhexlify(b'21' + pubkey) + from_int_to_byte(int(b'ac', 16))
+    return binascii.unhexlify(b'21' + pubkey + b'ac')
 
 
 def redeem_to_scripthash(redeem):
