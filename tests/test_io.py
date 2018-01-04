@@ -1,14 +1,11 @@
-import os
 from io import BytesIO
 from unittest import TestCase
 from neocore.Fixed8 import Fixed8
 from neocore.UInt160 import UInt160
 from neocore.UInt256 import UInt256
-
 from neocore.IO.Mixins import SerializableMixin
 import neocore.IO.BinaryWriter as BinaryWriter
 from neocore.IO.BinaryReader import BinaryReader
-
 
 
 class TestObject(SerializableMixin):
@@ -25,6 +22,7 @@ class TestObject(SerializableMixin):
 
     def ToArray(self):
         pass
+
 
 class SerializableMixinTestCase(TestCase):
     def test_serializable_mixin(self):
@@ -116,7 +114,6 @@ class BinaryReaderTestCase(TestCase):
         test_object_list = reader.ReadSerializableArray('tests.test_io.TestObject')
         self.assertEqual(test_object_list[0].test_value, 0x4030201)
 
-
     def test_readserializable_fail(self):
         # fails because input stream is too short
         stream = BytesIO(b"\x04\x01\x02\x03")
@@ -129,6 +126,7 @@ class BinaryReaderTestCase(TestCase):
         reader = BinaryReader(stream)
         result = reader.ReadVarInt()
         self.assertEqual(result, 0)
+
 
 class BinaryWriterTestCase(TestCase):
     def test_various(self):
