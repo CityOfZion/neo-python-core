@@ -1,3 +1,4 @@
+import binascii
 from io import BytesIO
 from unittest import TestCase
 from neocore.Fixed8 import Fixed8
@@ -299,3 +300,46 @@ class BinaryWriterTestCase(TestCase):
         bw.WriteFixed8(Fixed8(100))
         stream.seek(0)
         self.assertEqual(stream.readline(), b'd\x00\x00\x00\x00\x00\x00\x00')
+
+        #
+        stream, bw = bw_setup()
+        test_value = "my_test_string"
+        bw.WriteVarString(test_value)
+        stream.seek(0)
+        result = stream.readline()
+        # note \x0e is the length of `test_value` that's appended in front
+        self.assertEqual(b'\x0emy_test_string', result)
+
+    def test_Write2000256List(self):
+        item = b'aa' * 32
+        my_list = [item] * 2000
+
+        stream = BytesIO()
+        bw = BinaryWriter.BinaryWriter(stream)
+        bw.Write2000256List(my_list)
+
+        stream.seek(0)
+        for i in range(0, 2000):
+            x = binascii.hexlify(stream.readline(32))
+            self.assertEqual(item, x)
+
+    def test_write_serializable_array(self):
+        my_array = [TestObject(1), TestObject(2)]
+
+        stream = BytesIO()
+        bw = BinaryWriter.BinaryWriter(stream)
+        bw.WriteSerializableArray(my_array)
+
+        stream.seek(0)
+        reader = BinaryReader(stream)
+        test_object_list = reader.ReadSerializableArray('tests.test_io.TestObject')
+        self.assertEqual(0x1, test_object_list[0].test_value)
+        self.assertEqual(0x2, test_object_list[1].test_value)
+
+    def test_writefixedstring_exception(self):
+        stream = BytesIO()
+        bw = BinaryWriter.BinaryWriter(stream)
+
+        with self.assertRaises(Exception) as context:
+            bw.WriteFixedString("abc", 2)
+        self.assertTrue("string longer than fixed length" in str(context.exception))
