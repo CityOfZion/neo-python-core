@@ -98,8 +98,6 @@ class BinaryWriter(object):
         if unhex:
             try:
                 value = binascii.unhexlify(value)
-            except TypeError:
-                pass
             except binascii.Error:
                 pass
         return self.stream.write(value)
@@ -384,7 +382,7 @@ class BinaryWriter(object):
         """
         towrite = value.encode('utf-8')
         slen = len(towrite)
-        if len(value) > slen:
+        if slen > length:
             raise Exception("string longer than fixed length: %s " % length)
         self.WriteBytes(towrite)
         diff = length - slen
