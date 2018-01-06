@@ -223,8 +223,8 @@ class BinaryReader(object):
             int:
         """
         fb = self.ReadByte()
-        if fb is None:
-            return 0
+        if fb is 0:
+            return fb
         value = 0
         if hex(fb) == '0xfd':
             value = self.ReadUInt16()
