@@ -12,6 +12,7 @@ from logzero import logger
 
 modpow = pow
 
+
 # (gcd,c,d)= GCD(a, b)  ===> a*c+b*d!=gcd:
 
 
@@ -172,7 +173,7 @@ def sqrtCQ(val, CQ):
             P = next_random_integer(CQ.bit_length())
 
         U, V = _lucas_sequence(CQ, P, Q, k)
-        if(V * V) % CQ == fourQ:
+        if (V * V) % CQ == fourQ:
 
             if test_bit(V, 0):
                 V += CQ
@@ -188,6 +189,7 @@ class FiniteField:
     """
     FiniteField implements a value modulus a number.
     """
+
     class Value:
         """
         represent a value in the FiniteField
@@ -199,40 +201,57 @@ class FiniteField:
             self.value = field.integer(value)
 
         # Value * int
-        def __add__(self, rhs): return self.field.add(self, self.field.value(rhs))
+        def __add__(self, rhs):
+            return self.field.add(self, self.field.value(rhs))
 
-        def __sub__(self, rhs): return self.field.sub(self, self.field.value(rhs))
+        def __sub__(self, rhs):
+            return self.field.sub(self, self.field.value(rhs))
 
-        def __mul__(self, rhs): return self.field.mul(self, self.field.value(rhs))
+        def __mul__(self, rhs):
+            return self.field.mul(self, self.field.value(rhs))
 
-        def __truediv__(self, rhs): return self.field.div(self, self.field.value(rhs))
+        def __truediv__(self, rhs):
+            return self.field.div(self, self.field.value(rhs))
 
-        def __pow__(self, rhs): return self.field.pow(self, rhs)
+        def __pow__(self, rhs):
+            return self.field.pow(self, rhs)
 
         # int * Value
-        def __radd__(self, rhs): return self.field.add(self.field.value(rhs), self)
+        def __radd__(self, rhs):
+            return self.field.add(self.field.value(rhs), self)
 
-        def __rsub__(self, rhs): return self.field.sub(self.field.value(rhs), self)
+        def __rsub__(self, rhs):
+            return self.field.sub(self.field.value(rhs), self)
 
-        def __rmul__(self, rhs): return self.field.mul(self.field.value(rhs), self)
+        def __rmul__(self, rhs):
+            return self.field.mul(self.field.value(rhs), self)
 
-        def __rdiv__(self, rhs): return self.field.div(self.field.value(rhs), self)
+        def __rdiv__(self, rhs):
+            return self.field.div(self.field.value(rhs), self)
 
-        def __rpow__(self, rhs): return self.field.pow(self.field.value(rhs), self)
+        def __rpow__(self, rhs):
+            return self.field.pow(self.field.value(rhs), self)
 
-        def __eq__(self, rhs): return self.field.eq(self, self.field.value(rhs))
+        def __eq__(self, rhs):
+            return self.field.eq(self, self.field.value(rhs))
 
-        def __ne__(self, rhs): return not (self == rhs)
+        def __ne__(self, rhs):
+            return not (self == rhs)
 
-        def __str__(self): return "0x%s" % self.value
+        def __str__(self):
+            return "0x%s" % self.value
 
-        def __neg__(self): return self.field.neg(self)
+        def __neg__(self):
+            return self.field.neg(self)
 
-        def sqrt(self, flag): return self.field.sqrt(self, flag)
+        def sqrt(self, flag):
+            return self.field.sqrt(self, flag)
 
-        def sqrtCQ(self, CQ): return self.field.sqrtCQ(self, CQ)
+        def sqrtCQ(self, CQ):
+            return self.field.sqrtCQ(self, CQ)
 
-        def inverse(self): return self.field.inverse(self)
+        def inverse(self):
+            return self.field.inverse(self)
 
         def iszero(self):
             return self.value == 0
@@ -244,19 +263,26 @@ class FiniteField:
     several basic operators
     """
 
-    def add(self, lhs, rhs): return samefield(lhs, rhs) and self.value((lhs.value + rhs.value) % self.p)
+    def add(self, lhs, rhs):
+        return samefield(lhs, rhs) and self.value((lhs.value + rhs.value) % self.p)
 
-    def sub(self, lhs, rhs): return samefield(lhs, rhs) and self.value((lhs.value - rhs.value) % self.p)
+    def sub(self, lhs, rhs):
+        return samefield(lhs, rhs) and self.value((lhs.value - rhs.value) % self.p)
 
-    def mul(self, lhs, rhs): return samefield(lhs, rhs) and self.value((lhs.value * rhs.value) % self.p)
+    def mul(self, lhs, rhs):
+        return samefield(lhs, rhs) and self.value((lhs.value * rhs.value) % self.p)
 
-    def div(self, lhs, rhs): return samefield(lhs, rhs) and self.value((lhs.value * rhs.inverse()) % self.p)
+    def div(self, lhs, rhs):
+        return samefield(lhs, rhs) and self.value((lhs.value * rhs.inverse()) % self.p)
 
-    def pow(self, lhs, rhs): return self.value(pow(int(lhs.value), int(self.integer(rhs)), self.p))
+    def pow(self, lhs, rhs):
+        return self.value(pow(int(lhs.value), int(self.integer(rhs)), self.p))
 
-    def eq(self, lhs, rhs): return (lhs.value - rhs.value) % self.p == 0
+    def eq(self, lhs, rhs):
+        return (lhs.value - rhs.value) % self.p == 0
 
-    def neg(self, val): return self.value(self.p - val.value)
+    def neg(self, val):
+        return self.value(self.p - val.value)
 
     def sqrt(self, val, flag):
         """
@@ -266,13 +292,13 @@ class FiniteField:
             return val
         sw = self.p % 8
         if sw == 3 or sw == 7:
-            res = val**((self.p + 1) / 4)
+            res = val ** ((self.p + 1) / 4)
         elif sw == 5:
-            x = val**((self.p + 1) / 4)
+            x = val ** ((self.p + 1) / 4)
             if x == 1:
-                res = val**((self.p + 3) / 8)
+                res = val ** ((self.p + 3) / 8)
             else:
-                res = (4 * val)**((self.p - 5) / 8) * 2 * val
+                res = (4 * val) ** ((self.p - 5) / 8) * 2 * val
         else:
             raise Exception("modsqrt non supported for (p%8)==1")
 
@@ -322,6 +348,7 @@ class EllipticCurve:
     """
     EllipticCurve implements a point on a elliptic curve
     """
+
     class ECPoint:
         """
         represent a value in the EllipticCurve
@@ -332,20 +359,27 @@ class EllipticCurve:
             self.curve = curve
             self.x = x
             self.y = y
+
         # Point + Point
 
-        def __add__(self, rhs): return self.curve.add(self, rhs)
+        def __add__(self, rhs):
+            return self.curve.add(self, rhs)
 
-        def __sub__(self, rhs): return self.curve.sub(self, rhs)
+        def __sub__(self, rhs):
+            return self.curve.sub(self, rhs)
 
         # Point * int   or Point * Value
-        def __mul__(self, rhs): return self.curve.mul(self, rhs)
+        def __mul__(self, rhs):
+            return self.curve.mul(self, rhs)
 
-        def __truediv__(self, rhs): return self.curve.div(self, rhs)
+        def __truediv__(self, rhs):
+            return self.curve.div(self, rhs)
 
-        def __eq__(self, rhs): return self.curve.eq(self, rhs)
+        def __eq__(self, rhs):
+            return self.curve.eq(self, rhs)
 
-        def __ne__(self, rhs): return not (self == rhs)
+        def __ne__(self, rhs):
+            return not (self == rhs)
 
         def __lt__(self, other):
             if other == self:
@@ -381,9 +415,11 @@ class EllipticCurve:
                 return True
             return self.__gt__(other)
 
-        def __str__(self): return "(%s,%s)" % (self.x, self.y)
+        def __str__(self):
+            return "(%s,%s)" % (self.x, self.y)
 
-        def __neg__(self): return self.curve.neg(self)
+        def __neg__(self):
+            return self.curve.neg(self)
 
         def iszero(self):
             return self.x.iszero() and self.y.iszero()
@@ -455,19 +491,20 @@ class EllipticCurve:
         if p == q:
             if p.y == 0:
                 return self.zero()
-            lft = (3 * p.x**2 + self.a) / (2 * p.y)
+            lft = (3 * p.x ** 2 + self.a) / (2 * p.y)
         elif p.x == q.x:
             return self.zero()
         else:
             lft = (p.y - q.y) / (p.x - q.x)
 
         # calculate the intersection point
-        x = lft**2 - (p.x + q.x)
+        x = lft ** 2 - (p.x + q.x)
         y = lft * (p.x - x) - p.y
         return self.point(x, y)
 
     # subtraction is :  a - b  =  a + -b
-    def sub(self, lhs, rhs): return lhs + -rhs
+    def sub(self, lhs, rhs):
+        return lhs + -rhs
 
     # scalar multiplication is implemented like repeated addition
     def mul(self, pt, scalar):
@@ -491,7 +528,8 @@ class EllipticCurve:
         """
         return pt * (1 / scalar)
 
-    def eq(self, lhs, rhs): return lhs.x == rhs.x and lhs.y == rhs.y
+    def eq(self, lhs, rhs):
+        return lhs.x == rhs.x and lhs.y == rhs.y
 
     def neg(self, pt):
         return self.point(pt.x, -pt.y)
@@ -513,7 +551,7 @@ class EllipticCurve:
         """
         verifies if a point is on the curve
         """
-        return p.iszero() or p.y**2 == p.x**3 + self.a * p.x + self.b
+        return p.iszero() or p.y ** 2 == p.x ** 3 + self.a * p.x + self.b
 
     def decompress(self, x, flag):
         """
@@ -821,9 +859,9 @@ class ECDSA:
         """
         create the secp256k1 curve
         """
-        GFp = FiniteField(2**256 - 2**32 - 977)  # This is P from below... aka FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
+        GFp = FiniteField(2 ** 256 - 2 ** 32 - 977)  # This is P from below... aka FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
         ec = EllipticCurve(GFp, 0, 7)
-        return ECDSA(ec, ec.point(0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798, 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8), 2**256 - 432420386565659656852420866394968145599)
+        return ECDSA(ec, ec.point(0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798, 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8), 2 ** 256 - 432420386565659656852420866394968145599)
 
     @staticmethod
     def SignSecp256R1(message, prikey, pubkey):
