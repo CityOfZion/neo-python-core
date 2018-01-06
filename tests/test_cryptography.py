@@ -1,6 +1,5 @@
 import binascii
 from neocore.Cryptography import Helper
-from neocore.Cryptography.Crypto import Crypto
 from unittest import TestCase
 from neocore.KeyPair import KeyPair
 
@@ -32,7 +31,7 @@ class HelperTestCase(TestCase):
         self.assertNotEqual(a, b)
 
     def test_double_sha256(self):
-        expected_hash = '4f8b42c22dd3729b519ba6f68d2da7cc5b2d606d05daed5ad5128cc03e6c6358' #https://www.dlitz.net/crypto/shad256-test-vectors/
+        expected_hash = '4f8b42c22dd3729b519ba6f68d2da7cc5b2d606d05daed5ad5128cc03e6c6358'  # https://www.dlitz.net/crypto/shad256-test-vectors/
         result = Helper.double_sha256(b'abc')
         self.assertEqual(result, expected_hash)
 
@@ -61,3 +60,16 @@ class HelperTestCase(TestCase):
 
         result = Helper.pubkey_to_pubhash(pub_bytes)
         self.assertEqual(result, expected_scripthash)
+
+    def test_base256_zero_input(self):
+        result = Helper.base256_encode(0)
+        self.assertEqual(bytearray.fromhex('00'), result)
+
+    def test_base256_negative_input(self):
+        with self.assertRaises(ValueError) as context:
+            Helper.base256_encode(-1)
+        self.assertTrue("Negative numbers not supported" in str(context.exception))
+
+    def test_base256_padding(self):
+        result = Helper.base256_encode(1230, minwidth=5)
+        self.assertEqual(5, len(result))
