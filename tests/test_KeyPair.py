@@ -21,6 +21,14 @@ class ConstructorTestCase(TestCase):
             KeyPair(bytes(32 * 'A', 'utf8'))
         self.assertEqual('Could not determine public key', str(context.exception))
 
+    def test_long_private_key(self):
+        # Taken from the neo-python UserWallet test
+        priv_key = b'[\\\x8c\xdc\xb3/\x8e\'\x8e\x11\x1a\x0b\xf5\x8e\xbbF9\x88\x02K\xb4\xe2P\xaaC\x10\xb4\x02R\x03\x0b`\xdd\xc4\x99[\xac\x00)\x8b"s\x1d\xe7\xa8?\xa4\x9d\xed*\xce\xeai\xfa=\xd8r\x93p \xc8\xa9\xb6\xc6ad\xf6V\x9b#\xdfX\xc5Ltnv\x84%\x1a\x17e:K2\xf1\xb4JW\x03\xfd\xad\x94\x8eu]'
+        kp = KeyPair(priv_key)
+
+        expected_result = b'025b5c8cdcb32f8e278e111a0bf58ebb463988024bb4e250aa4310b40252030b60'
+        self.assertEqual(expected_result, kp.PublicKey.encode_point(True))
+
 
 class PrivateKeyFromWIFTestCase(TestCase):
     def test_should_throw_error_on_too_short_wif(self):
