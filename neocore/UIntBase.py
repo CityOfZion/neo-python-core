@@ -15,7 +15,7 @@ class UIntBase(SerializableMixin):
 
         else:
             if len(data) != num_bytes:
-                raise Exception("Invalid UInt")
+                raise Exception("Invalid UInt - data length {} != specified num_bytes {}".format(len(data), num_bytes))
 
             if type(data) is bytes:
                 self.Data = bytearray(data)
