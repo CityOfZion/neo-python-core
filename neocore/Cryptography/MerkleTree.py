@@ -151,29 +151,30 @@ class MerkleTree(object):
 
     def Trim(self, flags):
         """
-        Trim a node.
+        Trim the nodes from the tree keeping only the root hash.
 
         Args:
-            flags:
+            flags: "0000" for trimming, any other value for keeping the nodes.
         """
         logger.info("Trimming!")
         flags = bytearray(flags)
-        length = 1 << len(self.Depth - 1)
+        length = 1 << self.Depth - 1
         while len(flags) < length:
             flags.append(0)
 
-        MerkleTree.__TrimNode(self.Root, 0, self.Depth, flags)
+        MerkleTree._TrimNode(self.Root, 0, self.Depth, flags)
 
     @staticmethod
-    def __TrimNode(node, index, depth, flags):
+    def _TrimNode(node, index, depth, flags):
         """
         Internal helper method to trim a node.
 
         Args:
             node (MerkleTreeNode):
             index (int): flag index.
-            depth (int): node tree depth.
-            flags (bytearray): left/right flags?
+            depth (int): node tree depth to start trim from.
+            flags (bytearray): of left/right pairs. 1 byte for the left node, 1 byte for the right node.
+                                00 to erase, 11 to keep. Will keep the node if either left or right is not-0
         """
         if depth == 1 or node.LeftChild is None:
             return
@@ -185,8 +186,8 @@ class MerkleTree(object):
 
         else:
 
-            MerkleTree.__TrimNode(node.LeftChild, index * 2, depth - 1, flags)
-            MerkleTree.__TrimNode(node.RightChild, index * 2, depth - 1, flags)
+            MerkleTree._TrimNode(node.LeftChild, index * 2, depth - 1, flags)
+            MerkleTree._TrimNode(node.RightChild, index * 2, depth - 1, flags)
 
             if node.LeftChild.LeftChild is None and node.RightChild.RightChild is None:
                 node.LeftChild = None
