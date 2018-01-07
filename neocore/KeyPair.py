@@ -63,10 +63,6 @@ class KeyPair(object):
             except Exception as e:
                 raise Exception("Could not determine public key")
 
-        elif length == 64 or length == 72:
-            skip = length - 64
-            pubkey_encoded_not_compressed = bytearray(b'04').hex() + priv_key[skip:]
-
         elif length == 96 or length == 104:
             skip = length - 96
             pubkey_encoded_not_compressed = bytearray(b'\x04') + bytearray(priv_key[skip:skip + 64])

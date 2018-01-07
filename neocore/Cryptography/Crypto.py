@@ -96,7 +96,7 @@ class Crypto(object):
         Returns:
             str: base58 encoded string representing the wallet address.
         """
-        return hash_to_wallet_address(script_hash.Data)
+        return scripthash_to_address(script_hash.Data)
 
     @staticmethod
     def Sign(message, private_key, public_key):
