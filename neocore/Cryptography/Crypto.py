@@ -131,7 +131,7 @@ class Crypto(object):
         Args:
             message (str): the message to verify.
             signature (bytearray): the signature belonging to the message.
-            public_key (ECPoint): the public key to use for verifying the signature.
+            public_key (ECPoint|bytes): the public key to use for verifying the signature. If `public_key` is of type bytes then it should be raw bytes (i.e. b'\xAA\xBB').
 
         Returns:
             bool: True if verification passes. False otherwise.

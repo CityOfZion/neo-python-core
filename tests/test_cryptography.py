@@ -1,9 +1,11 @@
 import binascii
+from mock import patch
 from neocore.Cryptography import Helper
 from unittest import TestCase
 from neocore.KeyPair import KeyPair
 from neocore.Cryptography.MerkleTree import MerkleTree
 from neocore.UInt256 import UInt256
+from neocore.Cryptography.Crypto import Crypto
 
 
 class HelperTestCase(TestCase):
@@ -180,10 +182,6 @@ class MerkleTreeTestCase(TestCase):
     def test_node_methods(self):
         hash1 = UInt256(data=binascii.unhexlify(b'aa' * 32))
         hash2 = UInt256(data=binascii.unhexlify(b'bb' * 32))
-        # hash3 = UInt256(data=binascii.unhexlify(b'cc' * 32))
-        # hash4 = UInt256(data=binascii.unhexlify(b'dd' * 32))
-        # hash5 = UInt256(data=binascii.unhexlify(b'ee' * 32))
-        # hashes = [hash1, hash2, hash3, hash4, hash5]
         hashes = [hash1, hash2]
         m = MerkleTree(hashes)
 
@@ -194,3 +192,45 @@ class MerkleTreeTestCase(TestCase):
 
         # I have no acceptable test vector
         m.Root.LeftChild.Size()
+
+
+class TestCrypto(TestCase):
+    def test_sign_and_verify(self):
+        privkey = KeyPair.PrivateKeyFromWIF("L44B5gGEpqEDRS9vVPz7QT35jcBG2r3CZwSwQ4fCewXAhAhqGVpP")
+        keypair = KeyPair(privkey)
+        hashdata = b'aabbcc'
+
+        keypair_signature = Crypto.Sign(hashdata, bytes(keypair.PrivateKey), keypair.PublicKey)
+        keypair_signature2 = Crypto.Default().Sign(hashdata, bytes(keypair.PrivateKey), keypair.PublicKey)
+        self.assertEqual(keypair_signature, keypair_signature2)
+
+        verification_result = Crypto.VerifySignature(hashdata.decode('utf8'), keypair_signature, keypair.PublicKey)
+        verification_result2 = Crypto.Default().VerifySignature(hashdata.decode('utf8'), keypair_signature, keypair.PublicKey)
+        self.assertEqual(verification_result, verification_result2)
+        self.assertTrue(verification_result)
+
+        # verify with compressed key
+        verification_result3 = Crypto.VerifySignature(hashdata.decode('utf8'), keypair_signature, binascii.unhexlify(keypair.PublicKey.encode_point(True)))
+        self.assertTrue(verification_result3)
+
+        # this should fail because the signature will not match the input data
+        verification_result = Crypto.VerifySignature(b'aabb', keypair_signature, keypair.PublicKey)
+        self.assertFalse(verification_result)
+
+    def test_script_hash(self):
+        # Expected output taken from running: getHash(Buffer.from('abc', 'utf8')).toString('hex')
+        # using https://github.com/CityOfZion/neon-wallet-react-native/blob/master/app/api/crypto/index.js
+        expected_result = b'bb1be98c142444d7a56aa3981c3942a978e4dc33'
+
+        result = Crypto.Default().Hash160(b'abc')
+        self.assertEqual(expected_result, binascii.hexlify(result))
+
+    @patch('neocore.Cryptography.Crypto.logger')
+    def test_faulty_message_param_to_verify_signature(self, mocked_logger):
+        faulty_message = bytes.fromhex('aa')  # faulty because the message should be non-raw bytes. i.e. b'aa'
+        fake_signature = bytes.fromhex('aabb')  # irrelevant for the test
+        fake_pubkey = bytes.fromhex('aabb')  # irrelevant for the test
+
+        result = Crypto.VerifySignature(faulty_message, fake_signature, fake_pubkey)
+        self.assertTrue(mocked_logger.error.called)
+        self.assertFalse(result)
