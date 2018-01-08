@@ -54,7 +54,7 @@ test: ## run tests quickly with the default Python
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source neocore setup.py test
-	coverage report -m
+	coverage report -m --omit=neocore/Cryptography/ECCurve.py
 	coverage html
 	$(BROWSER) htmlcov/index.html
 

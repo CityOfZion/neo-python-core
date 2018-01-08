@@ -17,7 +17,7 @@ install:
 
 script:
   # run internal tests
-  - coverage run --source neocore setup.py test
+  - coverage run --omit neocore/Cryptography/ECCurve.py --source neocore setup.py test
   - pycodestyle neocore tests
 
   # now test the upstream neo-python dev branch with the current neocore code
