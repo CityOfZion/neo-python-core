@@ -194,7 +194,7 @@ class CryptoInstance():
 
         Args:
             message (str): message to be signed
-            prikey (str): 32 byte key as a double digit hex string (e.g. having a length of 64)
+            private_key (str): 32 byte key as a double digit hex string (e.g. having a length of 64)
 
         Returns:
             bytearray: the signature of the message.
@@ -208,7 +208,7 @@ class CryptoInstance():
         Args:
             message (str): the message to verify.
             signature (bytearray): the signature belonging to the message.
-            pubkey (ECPoint): the public key to use for verifying the signature.
+            public_key (ECPoint): the public key to use for verifying the signature.
 
         Returns:
             bool: True if verification passes. False otherwise.
