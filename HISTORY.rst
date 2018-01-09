@@ -2,6 +2,12 @@
 History
 =======
 
+0.3.1 (2018-01-09)
+------------------
+* Documentation update
+* Moved the ``cryptography`` dependency to ``requirements_dev.txt``
+
+
 0.3.0 (2018-01-09)
 ------------------
 * Added ``neo.Cryptography`` and ``KeyPair``
