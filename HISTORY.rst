@@ -4,7 +4,7 @@ History
 
 0.3.0 (2018-01-09)
 ------------------
-* Added neo.Cryptography and KeyPair
+* Added ``neo.Cryptography`` and ``KeyPair``
 * Changed signature of ``neocore.Cryptography.Crypto.Sign()`` to remove unused ``public_key`` argument
 * Removed redundant ``neocore.Cryptography.Helper.hash_to_wallet_address()`` function, use  ``neocore.Cryptography.Helper.scripthash_to_address()`` instead.
 * Removed unused ``neocore.Cryptography.Helper`` functions: ``random_string``, ``bytes_to_hex_string``, ``bin_sha256``, ``sha256``, ``random_key``.

@@ -3,7 +3,7 @@
 Description:
     Cryptography Helper
 Usage:
-    from neo.Cryptography.Helper import *
+    from neocore.Cryptography.Helper import *
 """
 
 from bitcoin import *

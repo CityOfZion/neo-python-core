@@ -3,7 +3,7 @@
 Description:
     ECC Curve
 Usage:
-    from neo.Cryptography.ECCurve import ECCurve
+    from neocore.Cryptography.ECCurve import ECCurve
 """
 import random
 import binascii

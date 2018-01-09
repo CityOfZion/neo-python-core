@@ -1,8 +1,9 @@
 """
 Description:
     Binary Reader
+
 Usage:
-    from neo.IO.BinaryReader import BinaryReader
+    from neocore.IO.BinaryReader import BinaryReader
 """
 import sys
 import struct
@@ -369,7 +370,7 @@ class BinaryReader(object):
         Read a Fixed8 value.
 
         Returns:
-            neo.Fixed8
+            neocore.Fixed8
         """
         fval = self.ReadInt64()
         return Fixed8(fval)

@@ -2,8 +2,9 @@
 """
 Description:
     Binary Writer
+
 Usage:
-    from neo.IO.BinaryWriter import BinaryWriter
+    from neocore.IO.BinaryWriter import BinaryWriter
 """
 import sys
 import os
@@ -32,7 +33,7 @@ def swap32(i):
 def convert_to_uint160(value):
     """
     Convert an int value to a 10 bytes binary string value.
-    Note: the return value is not really 160 bits, nor is it of the neo.UInt160 type
+    Note: the return value is not really 160 bits, nor is it of the neocore.UInt160 type
 
     Args:
         value (int): number to convert.
@@ -46,7 +47,7 @@ def convert_to_uint160(value):
 def convert_to_uint256(value):
     """
     Convert an int value to a 16 bytes binary string value.
-    Note: the return value is not really 256 bits, nor is it of the neo.UInt256 type
+    Note: the return value is not really 256 bits, nor is it of the neocore.UInt256 type
 
     Args:
         value (int): number to convert.
@@ -278,7 +279,7 @@ class BinaryWriter(object):
             value (UInt160):
 
         Raises:
-            Exception: when `value` is not of neo.UInt160 type.
+            Exception: when `value` is not of neocore.UInt160 type.
         """
         if type(value) is UInt160:
             value.Serialize(self)
@@ -293,7 +294,7 @@ class BinaryWriter(object):
             value (UInt256):
 
         Raises:
-            Exception: when `value` is not of neo.UInt256 type.
+            Exception: when `value` is not of neocore.UInt256 type.
         """
         if type(value) is UInt256:
             value.Serialize(self)
