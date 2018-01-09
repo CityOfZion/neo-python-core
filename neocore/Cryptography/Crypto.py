@@ -188,7 +188,7 @@ class CryptoInstance():
         """
         return Crypto.Hash256(message)
 
-    def Sign(self, message, prikey):
+    def Sign(self, message, private_key):
         """
         Sign the message with the given private key.
 
@@ -199,9 +199,9 @@ class CryptoInstance():
         Returns:
             bytearray: the signature of the message.
         """
-        return Crypto.Sign(message, prikey)
+        return Crypto.Sign(message, private_key)
 
-    def VerifySignature(self, message, signature, pubkey):
+    def VerifySignature(self, message, signature, public_key):
         """
         Verify the integrity of the message.
 
@@ -213,4 +213,4 @@ class CryptoInstance():
         Returns:
             bool: True if verification passes. False otherwise.
         """
-        return Crypto.VerifySignature(message, signature, pubkey)
+        return Crypto.VerifySignature(message, signature, public_key)
