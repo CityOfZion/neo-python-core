@@ -5,4 +5,3 @@ bitcoin==1.1.42
 mpmath==1.0.0
 scrypt==0.8.0
 pycrypto==2.6.1
-cryptography==2.1.4

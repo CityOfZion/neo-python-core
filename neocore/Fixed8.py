@@ -2,8 +2,9 @@
 """
 Description:
     Fixed8
+
 Usage:
-    from neo.Fixed8 import Fixed8
+    from neocore.Fixed8 import Fixed8
 """
 
 import math
