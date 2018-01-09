@@ -200,8 +200,8 @@ class TestCrypto(TestCase):
         keypair = KeyPair(privkey)
         hashdata = b'aabbcc'
 
-        keypair_signature = Crypto.Sign(hashdata, bytes(keypair.PrivateKey), keypair.PublicKey)
-        keypair_signature2 = Crypto.Default().Sign(hashdata, bytes(keypair.PrivateKey), keypair.PublicKey)
+        keypair_signature = Crypto.Sign(hashdata, bytes(keypair.PrivateKey))
+        keypair_signature2 = Crypto.Default().Sign(hashdata, bytes(keypair.PrivateKey))
         self.assertEqual(keypair_signature, keypair_signature2)
 
         verification_result = Crypto.VerifySignature(hashdata.decode('utf8'), keypair_signature, keypair.PublicKey)
