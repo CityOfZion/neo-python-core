@@ -99,14 +99,13 @@ class Crypto(object):
         return scripthash_to_address(script_hash.Data)
 
     @staticmethod
-    def Sign(message, private_key, public_key):
+    def Sign(message, private_key):
         """
         Sign the message with the given private key.
 
         Args:
             message (str): message to be signed
             private_key (str): 32 byte key as a double digit hex string (e.g. having a length of 64)
-            public_key: UNUSED.
         Returns:
             bytearray: the signature of the message.
         """
@@ -189,30 +188,29 @@ class CryptoInstance():
         """
         return Crypto.Hash256(message)
 
-    def Sign(self, message, prikey, public_key):
+    def Sign(self, message, private_key):
         """
         Sign the message with the given private key.
 
         Args:
             message (str): message to be signed
-            prikey (str): 32 byte key as a double digit hex string (e.g. having a length of 64)
-            public_key: UNUSED.
+            private_key (str): 32 byte key as a double digit hex string (e.g. having a length of 64)
 
         Returns:
             bytearray: the signature of the message.
         """
-        return Crypto.Sign(message, prikey, public_key)
+        return Crypto.Sign(message, private_key)
 
-    def VerifySignature(self, message, signature, pubkey):
+    def VerifySignature(self, message, signature, public_key):
         """
         Verify the integrity of the message.
 
         Args:
             message (str): the message to verify.
             signature (bytearray): the signature belonging to the message.
-            pubkey (ECPoint): the public key to use for verifying the signature.
+            public_key (ECPoint): the public key to use for verifying the signature.
 
         Returns:
             bool: True if verification passes. False otherwise.
         """
-        return Crypto.VerifySignature(message, signature, pubkey)
+        return Crypto.VerifySignature(message, signature, public_key)
