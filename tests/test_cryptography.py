@@ -56,6 +56,17 @@ class HelperTestCase(TestCase):
         self.assertEqual(scripthash, expected_scripthash)
         self.assertEqual(address, expected_address)
 
+    def test_scripthash_to_address_with_alternative_version(self):
+        default_address_version = Helper.ADDRESS_VERSION
+        Helper.ADDRESS_VERSION = 42
+        scripthash = binascii.unhexlify('42112378ffa32c4c65d513aa350689dff6381154')
+        expected_address = 'J1DfV2jS511SMtP6dH5ckr3Nwf26kbFx7s'
+        address = Helper.scripthash_to_address(scripthash)
+
+        self.assertEqual(address, expected_address)
+
+        Helper.ADDRESS_VERSION = default_address_version
+
     def test_publickey_to_scripthash(self):
         expected_scripthash = binascii.unhexlify('79ecf967a02f9bdbd147fc97b18efd7877d27f78')
         priv_key = KeyPair.PrivateKeyFromWIF('L44B5gGEpqEDRS9vVPz7QT35jcBG2r3CZwSwQ4fCewXAhAhqGVpP')

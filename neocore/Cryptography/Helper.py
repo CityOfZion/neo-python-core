@@ -16,6 +16,7 @@ import base58
 
 long = int
 
+ADDRESS_VERSION = 23
 
 def double_sha256(ba):
     """
@@ -70,7 +71,7 @@ def scripthash_to_address(scripthash):
     Returns:
         str: base58 encoded string representing the wallet address.
     """
-    sb = bytearray([23]) + scripthash
+    sb = bytearray([ADDRESS_VERSION]) + scripthash
     c256 = bin_dbl_sha256(sb)[0:4]
     outb = sb + bytearray(c256)
     return base58.b58encode(bytes(outb))
