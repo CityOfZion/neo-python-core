@@ -1,5 +1,4 @@
-
-**What current issue(s) does this address?, or what feature is it adding?**
+**What current issue(s) does this address, or what feature is it adding?**
 
 **How did you solve this problem?**
 
@@ -7,5 +6,6 @@
 
 **Did you add any tests?**
 
-**Are there any special changes in the code that we should be aware of?**
+**Did you run `make lint` and `make coverage`?**
 
+**Are there any special changes in the code that we should be aware of?**
