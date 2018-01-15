@@ -18,6 +18,7 @@ long = int
 
 ADDRESS_VERSION = 23
 
+
 def double_sha256(ba):
     """
     Perform two SHA256 operations on the input.
