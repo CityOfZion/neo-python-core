@@ -2,6 +2,10 @@
 History
 =======
 
+0.3.2 (2018-01-23)
+------------------
+* Added UInt ``To0xString`` method
+
 0.3.1 (2018-01-09)
 ------------------
 * Documentation update
