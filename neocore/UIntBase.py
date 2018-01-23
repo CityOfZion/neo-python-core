@@ -51,7 +51,7 @@ class UIntBase(SerializableMixin):
     def ToString2(self):
         return self.Data.hex()
 
-    def ToJsonString(self):
+    def To0xString(self):
         return '0x%s' % self.ToString()
 
     def ToBytes(self):

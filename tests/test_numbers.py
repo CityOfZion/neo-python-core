@@ -350,9 +350,9 @@ class UIntBaseTestCase(TestCase):
         u1 = UIntBase(3, b'abc')
         self.assertEqual(u1.ToString2(), '616263')
 
-    def test_tojsonstring(self):
+    def test_to0xstring(self):
         u1 = UIntBase(3, b'abc')
-        self.assertEqual(u1.ToJsonString(), '0x636261')
+        self.assertEqual(u1.To0xString(), '0x636261')
 
     def test_tobytes(self):
         u1 = UIntBase(3, b'abc')
