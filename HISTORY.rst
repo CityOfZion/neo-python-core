@@ -2,6 +2,14 @@
 History
 =======
 
+0.3.4-dev (work in progress)
+----------------------------
+* ...
+
+0.3.3 (2018-01-25)
+------------------
+* Added ``Fixed8.ToJsonString()`` (`PR #33 <https://github.com/CityOfZion/neo-python-core/pull/33>`_)
+
 0.3.2 (2018-01-23)
 ------------------
 * Added UInt ``To0xString`` method
