@@ -135,7 +135,7 @@ class Fixed8:
     def ToString(self):
         return str(self.value / Fixed8.D)
 
-    def ToJsonString(self):
+    def ToNeoJsonString(self):
         return self.ToString().rstrip('.0')
 
     def __str__(self):

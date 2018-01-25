@@ -179,9 +179,9 @@ class Fixed8TestCase(TestCase):
 
     def test_fixed8_tojsonstring(self):
         f8 = Fixed8.FromDecimal(1.0)
-        self.assertEqual("1", f8.ToJsonString())
+        self.assertEqual("1", f8.ToNeoJsonString())
         f8 = Fixed8.FromDecimal(1.10)
-        self.assertEqual("1.1", f8.ToJsonString())
+        self.assertEqual("1.1", f8.ToNeoJsonString())
 
 
 class BigIntegerTestCase(TestCase):
