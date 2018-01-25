@@ -58,7 +58,6 @@ class Fixed8TestCase(TestCase):
         self.assertEqual(f3.value, 8)
 
     def test_fixed8_mod(self):
-
         f1 = Fixed8(10)
         f2 = Fixed8(5)
 
@@ -177,6 +176,12 @@ class Fixed8TestCase(TestCase):
         self.assertEqual(f8.ToInt(), 1)
         self.assertEqual(f8.ToString(), "1.0")
         self.assertTrue(isinstance(f8.ToString(), str))
+
+    def test_fixed8_tojsonstring(self):
+        f8 = Fixed8.FromDecimal(1.0)
+        self.assertEqual("1", f8.ToJsonString())
+        f8 = Fixed8.FromDecimal(1.10)
+        self.assertEqual("1.1", f8.ToJsonString())
 
 
 class BigIntegerTestCase(TestCase):
