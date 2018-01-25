@@ -11,7 +11,6 @@ import math
 
 
 class Fixed8:
-
     value = 0
 
     D = 100000000
@@ -135,6 +134,9 @@ class Fixed8:
 
     def ToString(self):
         return str(self.value / Fixed8.D)
+
+    def ToNeoJsonString(self):
+        return self.ToString().rstrip('.0')
 
     def __str__(self):
         return self.ToString()
