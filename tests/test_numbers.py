@@ -449,6 +449,23 @@ class UInt160TestCase(TestCase):
             u1 = UInt160(b'12345')
 
 
+    def test_parse(self):
+        string = '0xd7678dd97c000be3f33e9362e673101bac4ca654'
+        uint160 = UInt160.ParseString(string)
+        self.assertIsInstance(uint160, UInt160)
+        self.assertEqual(uint160.To0xString(), string)
+
+        string = '5b7074e873973a6ed3708862f219a6fbf4d1c411'
+        uint160 = UInt160.ParseString(string)
+        self.assertIsInstance(uint160, UInt160)
+        self.assertEqual(uint160.ToString(), string)
+
+        string = '5b7074e873973a6ed3708862f219a6fbf4d1c41'
+        with self.assertRaises(Exception) as context:
+            uint160 = UInt160.ParseString(string)
+
+
+
 class UInt256TestCase(TestCase):
     def test_initialization(self):
         u0 = UInt256()
@@ -463,3 +480,20 @@ class UInt256TestCase(TestCase):
 
         with self.assertRaises(Exception):
             u1 = UInt256('12345678901234567890123456789012')
+
+
+    def test_parse(self):
+        string = '0xcedb5c4e24b1f6fc5b239f2d1049c3229ad5ed05293c696b3740dc236c3f41b4'
+        uint256 = UInt256.ParseString(string)
+        self.assertIsInstance(uint256, UInt256)
+        self.assertEqual(uint256.To0xString(), string)
+
+        string = '9410bd44beb7d6febc9278b028158af2781fcfb40cf2c6067b3525d24eff19f6'
+        uint256 = UInt256.ParseString(string)
+        self.assertIsInstance(uint256, UInt256)
+        self.assertEqual(uint256.ToString(), string)
+
+        string = '9410bd44beb7d6febc9278b028158af2781fcfb40cf2c6067b3525d24eff19f'
+        with self.assertRaises(Exception) as context:
+            uint256 = UInt256.ParseString(string)
+
