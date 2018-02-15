@@ -352,7 +352,8 @@ class BinaryWriter(object):
         """
         length = len(value)
         self.WriteVarInt(length, endian)
-        return self.WriteBytes(value)
+
+        return self.WriteBytes(value, unhex=False)
 
     def WriteVarString(self, value, encoding="utf-8"):
         """
