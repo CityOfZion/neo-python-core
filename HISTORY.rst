@@ -2,9 +2,13 @@
 History
 =======
 
-0.3.4-dev (work in progress)
+0.3.5-dev (work in progress)
 ----------------------------
 * ...
+
+0.3.4 (2018-01-25)
+------------------
+* Added ``ParseString`` method to UInt160/UInt256 (`PR #35 <https://github.com/CityOfZion/neo-python-core/pull/35>`_)
 
 0.3.3 (2018-01-25)
 ------------------
