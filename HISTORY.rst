@@ -2,6 +2,11 @@
 History
 =======
 
+0.3.6-dev (work in progress)
+----------------------------
+* ...
+
+
 0.3.5 (2018-02-15)
 ------------------
 * Bugfix: Dont unhex when writing var bytes (`PR #36 <https://github.com/CityOfZion/neo-python-core/pull/36>`_)
