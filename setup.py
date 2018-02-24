@@ -18,7 +18,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='neocore',
-    python_requires='>=3.4, <3.6',
+    python_requires='>=3.4',
     version='0.3.4-dev',
     description="Core functionality of neo-python",
     long_description=readme + '\n\n' + history,
@@ -38,5 +38,6 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ]
 )
