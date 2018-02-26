@@ -2,17 +2,30 @@
 History
 =======
 
-0.3.4-dev (work in progress)
+0.3.6-dev (work in progress)
 ----------------------------
 * ...
+
+
+0.3.5 (2018-02-15)
+------------------
+* Bugfix: Dont unhex when writing var bytes (`PR #36 <https://github.com/CityOfZion/neo-python-core/pull/36>`_)
+
+
+0.3.4 (2018-01-25)
+------------------
+* Added ``ParseString`` method to UInt160/UInt256 (`PR #35 <https://github.com/CityOfZion/neo-python-core/pull/35>`_)
+
 
 0.3.3 (2018-01-25)
 ------------------
 * Added ``Fixed8.ToJsonString()`` (`PR #33 <https://github.com/CityOfZion/neo-python-core/pull/33>`_)
 
+
 0.3.2 (2018-01-23)
 ------------------
 * Added UInt ``To0xString`` method
+
 
 0.3.1 (2018-01-09)
 ------------------
@@ -45,11 +58,9 @@ History
 
 0.1.1 - 0.1.2 (2017-12-30)
 --------------------------
-
 * Testing of releases on PyPI with Travis CI.
 
 
 0.1.0 (2017-12-28)
 ------------------
-
 * First release on PyPI.
