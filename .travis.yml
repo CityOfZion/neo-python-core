@@ -15,6 +15,9 @@ install:
   - pip install -r requirements_dev.txt
   - pip install coveralls
 
+env:
+  - SKIP_DEPS_CHECK=1
+
 script:
   # run internal tests
   - coverage run --omit neocore/Cryptography/ECCurve.py --source neocore setup.py test
