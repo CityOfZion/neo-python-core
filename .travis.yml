@@ -2,7 +2,7 @@
 language: python
 
 python:
-  - 3.5
+  - 3.6
 
 addons:
   apt:
@@ -36,7 +36,7 @@ after_success:
 deploy:
   true:
     tags: true
-    python: 3.5
+    python: 3.6
     repo: CityOfZion/neo-python-core
   distributions: sdist bdist_wheel
   password:
