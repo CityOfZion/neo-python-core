@@ -2,9 +2,14 @@
 History
 =======
 
-0.3.7-dev (work in progress)
+0.3.8-dev (in progress)
 ----------------------------
 * ...
+
+
+0.3.7 (2018-03-14)
+----------------------------
+* Update scrypt and logzero dependency versions
 
 
 0.3.6 (2018-02-26)
