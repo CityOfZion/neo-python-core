@@ -3,4 +3,4 @@
 """Top-level package for neo-python-core."""
 
 __author__ = """City of Zion"""
-__version__ = '0.3.7-dev'
+__version__ = '0.3.7'
