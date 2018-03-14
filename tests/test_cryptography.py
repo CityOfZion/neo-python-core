@@ -129,6 +129,9 @@ class MerkleTreeTestCase(TestCase):
         m = MerkleTree(hashes)
         hash_array = m.ToHashArray()
 
+        #sort the array
+        hash_array = sorted(hash_array)
+
         for i, h in enumerate(hashes):
             self.assertEqual(h.ToBytes(), hash_array[i].ToBytes())
 

@@ -2,13 +2,9 @@
 History
 =======
 
-0.3.8-dev (in progress)
+0.3.8 (2018-03-14)
 ----------------------------
-* ...
-
-
-0.3.7 (2018-03-14)
-----------------------------
+* Fix travis deploy to be compatible with recent neo-python changes
 * Update scrypt and logzero dependency versions
 
 
