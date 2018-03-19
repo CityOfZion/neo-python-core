@@ -18,8 +18,10 @@ class ConversionError(Exception):
 def address_to_scripthash(address):
     data = bytes(base58.b58decode(address))
 
-    # Make sure signature byte is correct
-    if data[0] != 0x17:
+    # Make sure signature byte is correct. In python 3, data[0] is bytes, and in 2 it's str.
+    # We use this isinstance checke to make it work with both Python 2 and 3.
+    is_correct_signature = data[0] != 0x17 if isinstance(data[0], bytes) else b'\x17'
+    if not is_correct_signature:
         raise ConversionError("Invalid address: wrong signature byte")
 
     # # Make sure the checksum is correct
