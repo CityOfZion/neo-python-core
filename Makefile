@@ -47,7 +47,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 
 lint: ## check style with flake8
-	pycodestyle neocore tests
+	pycodestyle neocore tests bin
 
 test: ## run tests quickly with the default Python
 	python -m unittest -v
