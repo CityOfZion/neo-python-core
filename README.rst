@@ -7,11 +7,10 @@ Library for working with NEO related data in Python, without database dependenci
         :target: https://coveralls.io/github/CityOfZion/neo-python-core
 
 
-* Includes datatypes like ``UInt160``, ``KeyPair``, and basic string to address and address to ``UInt160`` methods.
-* Used by `neo-python <https://github.com/CityOfZion/neo-python>`_.
+* Datatypes like ``UInt160``, ``KeyPair``, and basic string to address and address to ``UInt160`` methods
+* Includes a useful cli-tool ``np-utils`` (see help with ``np-utils -h``)
+* Used by `neo-python <https://github.com/CityOfZion/neo-python>`_
 * https://pypi.python.org/pypi/neocore
-
-Currently in alpha development.
 
 
 Getting started

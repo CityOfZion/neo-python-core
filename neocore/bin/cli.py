@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+This cli utility will be installed as `np-utils`. You can see the help with `np-utils -h`.
+"""
 import argparse
 import base58
 
