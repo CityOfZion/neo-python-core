@@ -2,8 +2,13 @@
 History
 =======
 
-0.3.8 (2018-03-14)
+0.3.9-dev (work in progress)
 ----------------------------
+* ``np-utils`` cli tool (see ``cli.py``, `PR #40 <https://github.com/CityOfZion/neo-python-core/pull/40>`_)
+
+
+0.3.8 (2018-03-14)
+------------------
 * Fix travis deploy to be compatible with recent neo-python changes
 * Update scrypt and logzero dependency versions
 

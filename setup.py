@@ -28,11 +28,16 @@ setup(
     packages=find_packages(include=['neocore']),
     include_package_data=True,
     install_requires=reqs,
+    entry_points = {
+        'console_scripts': [
+            'np-utils=neocore.bin.cli:main'
+        ]
+    },
     license="MIT license",
     zip_safe=False,
     keywords='neocore, neo, python, node',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
