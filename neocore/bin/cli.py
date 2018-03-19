@@ -4,13 +4,17 @@ This cli utility will be installed as `np-utils`. You can see the help with `np-
 """
 import argparse
 import base58
+import hashlib
 
 from neocore import __version__
 from neocore.Cryptography.Crypto import Crypto
 
 
 def address_to_scripthash(address):
-    print(base58.b58decode(address)[1:-4])
+    data = bytes(base58.b58decode(address))
+    if data[0] != b'\x17': return None
+    if data[-4:] != hashlib.sha256(hashlib.sha256(data[:-4]).digest()).digest()[:4]: return None
+    return data[1:-4]
 
 
 def main():
@@ -27,7 +31,7 @@ def main():
     # print(args)
 
     if args.address_to_scripthash:
-        address_to_scripthash(args.address_to_scripthash[0])
+        print([address_to_scripthash(args.address_to_scripthash[0])])
 
 
 if __name__ == "__main__":
