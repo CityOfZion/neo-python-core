@@ -187,6 +187,9 @@ class Fixed8TestCase(TestCase):
         f8 = Fixed8.FromDecimal(100)
         self.assertEqual("100", f8.ToNeoJsonString())
 
+        f8 = Fixed8.FromDecimal(2609.997813)
+        self.assertEqual("2609.997813", f8.ToNeoJsonString())
+
 
 class BigIntegerTestCase(TestCase):
     def test_big_integer_add(self):
