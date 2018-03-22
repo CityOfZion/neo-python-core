@@ -2,7 +2,7 @@
 History
 =======
 
-0.4.0 (2018-03-21)
+0.3.10 (2018-03-21)
 ----------------------------
 * Fix formatting of ``ToNeoJsonString()`` which was cutting off trailing zeroes from integers.
 
