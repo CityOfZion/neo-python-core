@@ -182,6 +182,10 @@ class Fixed8TestCase(TestCase):
         self.assertEqual("1", f8.ToNeoJsonString())
         f8 = Fixed8.FromDecimal(1.10)
         self.assertEqual("1.1", f8.ToNeoJsonString())
+        f8 = Fixed8.FromDecimal(10)
+        self.assertEqual("10", f8.ToNeoJsonString())
+        f8 = Fixed8.FromDecimal(100)
+        self.assertEqual("100", f8.ToNeoJsonString())
 
 
 class BigIntegerTestCase(TestCase):

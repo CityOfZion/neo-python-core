@@ -2,6 +2,10 @@
 History
 =======
 
+0.3.9 (2018-03-21)
+----------------------------
+* Fix formatting of ``ToNeoJsonString()`` which was cutting off trailing zeroes from integers.
+
 0.3.8 (2018-03-14)
 ----------------------------
 * Fix travis deploy to be compatible with recent neo-python changes
