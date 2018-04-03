@@ -24,7 +24,7 @@ def address_to_scripthash(address):
     if not is_correct_signature:
         raise ConversionError("Invalid address: wrong signature byte")
 
-    # # Make sure the checksum is correct
+    # Make sure the checksum is correct
     if data[-4:] != hashlib.sha256(hashlib.sha256(data[:-4]).digest()).digest()[:4]:
         raise ConversionError("Invalid address: invalid checksum")
 
@@ -51,7 +51,7 @@ def main():
     if args.address_to_scripthash:
         try:
             scripthash = address_to_scripthash(args.address_to_scripthash[0])
-            print(scripthash)
+            print('Script Hash: 0x{} -- Python format: {!r}'.format(scripthash[::-1].hex(), scripthash))
         except ConversionError as e:
             print(e)
             exit(1)
