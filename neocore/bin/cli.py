@@ -31,6 +31,20 @@ def address_to_scripthash(address):
     # Return only the scripthash bytes
     return data[1:-4]
 
+def scripthash_to_address(address):
+    data = address.replace('0x','')
+
+    # Check format
+    if len(data) != 40:
+            raise ConversionError("Wrong format")
+    # Add prefix
+    data = b'\x17' + bytearray.fromhex(data)[::-1]
+
+    # Add checksum
+    data = data + hashlib.sha256(hashlib.sha256(data).digest()).digest()[:4]
+
+    # Return Address
+    return base58.b58encode(data)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -41,6 +55,9 @@ def main():
 
     parser.add_argument("--address-to-scripthash", nargs=1, metavar="address",
                         help="Convert an address to scripthash")
+
+    parser.add_argument("--scripthash-to-address", nargs=1, metavar="scripthash",
+                        help="Convert scripthash to address")
 
     args = parser.parse_args()
     if len(sys.argv) == 1:
@@ -56,6 +73,13 @@ def main():
             print(e)
             exit(1)
 
+    if args.scripthash_to_address:
+        try:
+            address = scripthash_to_address(args.scripthash_to_address[0])
+            print(address)
+        except ConversionError as e:
+            print(e)
+            exit(1)
 
 if __name__ == "__main__":
     main()
