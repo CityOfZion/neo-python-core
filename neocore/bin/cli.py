@@ -9,6 +9,7 @@ import hashlib
 
 from neocore import __version__
 from neocore.Cryptography.Crypto import Crypto
+from neocore.UInt160 import UInt160
 
 
 class ConversionError(Exception):
@@ -31,20 +32,12 @@ def address_to_scripthash(address):
     # Return only the scripthash bytes
     return data[1:-4]
 
-def scripthash_to_address(address):
-    data = address.replace('0x','')
+def scripthash_to_address(scripthash):
+    try:
+        return Crypto.ToAddress(UInt160.ParseString(scripthash))
+    except:
+        raise ConversionError("Wrong format")
 
-    # Check format
-    if len(data) != 40:
-            raise ConversionError("Wrong format")
-    # Add prefix
-    data = b'\x17' + bytearray.fromhex(data)[::-1]
-
-    # Add checksum
-    data = data + hashlib.sha256(hashlib.sha256(data).digest()).digest()[:4]
-
-    # Return Address
-    return base58.b58encode(data)
 
 def main():
     parser = argparse.ArgumentParser()
