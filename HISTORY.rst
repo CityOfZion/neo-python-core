@@ -2,12 +2,18 @@
 History
 =======
 
+0.3.11-dev (work in progress)
+-----------------------------
+* ``np-utils`` cli tool (see ``cli.py``, `PR #40 <https://github.com/CityOfZion/neo-python-core/pull/40>`_)
+
+
 0.3.10 (2018-03-21)
 ----------------------------
 * Fix formatting of ``ToNeoJsonString()`` which was cutting off trailing zeroes from integers.
 
+
 0.3.8 (2018-03-14)
-----------------------------
+------------------
 * Fix travis deploy to be compatible with recent neo-python changes
 * Update scrypt and logzero dependency versions
 
