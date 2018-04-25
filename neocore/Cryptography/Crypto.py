@@ -8,11 +8,14 @@ from .ECCurve import EllipticCurve
 
 class Crypto(object):
 
+    _Instance = None
+
     @staticmethod
     def SetupSignatureCurve():
         """
         Setup the Elliptic curve parameters.
         """
+        print("CHANGING BITCOIN CURVE!")
         bitcoin.change_curve(
             int("FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16),
             int("FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16),
@@ -30,7 +33,9 @@ class Crypto(object):
         Returns:
             CryptoInstance:
         """
-        return CryptoInstance()
+        if not Crypto._Instance:
+            Crypto._Instance = CryptoInstance()
+        return Crypto._Instance
 
     @staticmethod
     def Hash160(message):
@@ -109,7 +114,6 @@ class Crypto(object):
         Returns:
             bytearray: the signature of the message.
         """
-        Crypto.SetupSignatureCurve()
 
         hash = hashlib.sha256(binascii.unhexlify(message)).hexdigest()
 
@@ -135,7 +139,6 @@ class Crypto(object):
         Returns:
             bool: True if verification passes. False otherwise.
         """
-        Crypto.SetupSignatureCurve()
 
         if type(public_key) is EllipticCurve.ECPoint:
             pubkey_x = public_key.x.value.to_bytes(32, 'big')
@@ -164,6 +167,9 @@ class Crypto(object):
 
 
 class CryptoInstance():
+
+    def __init__(self):
+        Crypto.SetupSignatureCurve()
 
     def Hash160(self, message):
         """
