@@ -15,7 +15,6 @@ class Crypto(object):
         """
         Setup the Elliptic curve parameters.
         """
-        print("CHANGING BITCOIN CURVE!")
         bitcoin.change_curve(
             int("FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16),
             int("FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16),
