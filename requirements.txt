@@ -4,4 +4,4 @@ base58>=0.2.5
 bitcoin>=1.1.42
 mpmath>=1.0.0
 scrypt>=0.8.6
-pycrypto>=2.6.1
+pycryptodome>=3.5.1
