@@ -32,10 +32,11 @@ def address_to_scripthash(address):
     # Return only the scripthash bytes
     return data[1:-4]
 
+
 def scripthash_to_address(scripthash):
     try:
         return Crypto.ToAddress(UInt160.ParseString(scripthash))
-    except:
+    except Exception as e:
         raise ConversionError("Wrong format")
 
 
@@ -73,6 +74,7 @@ def main():
         except ConversionError as e:
             print(e)
             exit(1)
+
 
 if __name__ == "__main__":
     main()
