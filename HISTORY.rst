@@ -2,7 +2,7 @@
 History
 =======
 
-0.4.0 (2018-04-26)
+0.4.1 (2018-04-26)
 -----------------------------
 * ``np-utils`` cli tool (see ``cli.py``, `PR #40 <https://github.com/CityOfZion/neo-python-core/pull/40>`_)
 * alter initialization of Crypto signature curve
