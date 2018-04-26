@@ -2,6 +2,11 @@
 History
 =======
 
+0.4.2 (2018-04-26)
+------------------
+* ``np-utils`` now supports ``--scripthash-to-address`` (thx @belane)
+
+
 0.4.1 (2018-04-26)
 -----------------------------
 * ``np-utils`` cli tool (see ``cli.py``, `PR #40 <https://github.com/CityOfZion/neo-python-core/pull/40>`_)
