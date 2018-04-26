@@ -9,6 +9,7 @@ import hashlib
 
 from neocore import __version__
 from neocore.Cryptography.Crypto import Crypto
+from neocore.UInt160 import UInt160
 
 
 class ConversionError(Exception):
@@ -24,12 +25,18 @@ def address_to_scripthash(address):
     if not is_correct_signature:
         raise ConversionError("Invalid address: wrong signature byte")
 
-    # # Make sure the checksum is correct
+    # Make sure the checksum is correct
     if data[-4:] != hashlib.sha256(hashlib.sha256(data[:-4]).digest()).digest()[:4]:
         raise ConversionError("Invalid address: invalid checksum")
 
     # Return only the scripthash bytes
     return data[1:-4]
+
+def scripthash_to_address(scripthash):
+    try:
+        return Crypto.ToAddress(UInt160.ParseString(scripthash))
+    except:
+        raise ConversionError("Wrong format")
 
 
 def main():
@@ -42,6 +49,9 @@ def main():
     parser.add_argument("--address-to-scripthash", nargs=1, metavar="address",
                         help="Convert an address to scripthash")
 
+    parser.add_argument("--scripthash-to-address", nargs=1, metavar="scripthash",
+                        help="Convert scripthash to address")
+
     args = parser.parse_args()
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
@@ -51,11 +61,18 @@ def main():
     if args.address_to_scripthash:
         try:
             scripthash = address_to_scripthash(args.address_to_scripthash[0])
-            print(scripthash)
+            print('Script Hash: 0x{} -- Python format: {!r}'.format(scripthash[::-1].hex(), scripthash))
         except ConversionError as e:
             print(e)
             exit(1)
 
+    if args.scripthash_to_address:
+        try:
+            address = scripthash_to_address(args.scripthash_to_address[0])
+            print(address)
+        except ConversionError as e:
+            print(e)
+            exit(1)
 
 if __name__ == "__main__":
     main()
