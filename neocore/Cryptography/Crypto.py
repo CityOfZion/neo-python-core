@@ -220,4 +220,4 @@ class CryptoInstance():
         Returns:
             bool: True if verification passes. False otherwise.
         """
-        return Crypto.VerifySignature(message, signature, public_key, unhex=True)
+        return Crypto.VerifySignature(message, signature, public_key, unhex=unhex)

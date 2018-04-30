@@ -2,7 +2,7 @@
 History
 =======
 
-0.4.4 (2018-04-30)
+0.4.5 (2018-04-30)
 ------------------
 * make unhexlify in Crypto.VerifySignature optional (`PR #48 <https://github.com/CityOfZion/neo-python-core/pull/48>`_)
 
