@@ -151,6 +151,8 @@ class Crypto(object):
                 message = binascii.unhexlify(message)
             except Exception as e:
                 logger.error("could not get m: %s" % e)
+        elif isinstance(message, str):
+            message = message.encode('utf-8')
 
         if len(public_key) == 33:
             public_key = bitcoin.decompress(public_key)
