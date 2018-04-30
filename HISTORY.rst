@@ -2,6 +2,11 @@
 History
 =======
 
+0.4.3 (2018-04-30)
+------------------
+* make unhexlify in Crypto.VerifySignature optional (`PR #48 <https://github.com/CityOfZion/neo-python-core/pull/48>`_)
+
+
 0.4.2 (2018-04-26)
 ------------------
 * ``np-utils`` now supports ``--scripthash-to-address`` (thx @belane)
