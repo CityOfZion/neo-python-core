@@ -227,6 +227,10 @@ class TestCrypto(TestCase):
         verification_result3 = Crypto.VerifySignature(hashdata.decode('utf8'), keypair_signature, binascii.unhexlify(keypair.PublicKey.encode_point(True)))
         self.assertTrue(verification_result3)
 
+        # verify without unhexxing
+        verification_result4 = Crypto.VerifySignature(binascii.unhexlify(hashdata), keypair_signature, binascii.unhexlify(keypair.PublicKey.encode_point(True)), unhex=False)
+        self.assertTrue(verification_result4)
+
         # this should fail because the signature will not match the input data
         verification_result = Crypto.VerifySignature(b'aabb', keypair_signature, keypair.PublicKey)
         self.assertFalse(verification_result)

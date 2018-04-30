@@ -126,7 +126,7 @@ class Crypto(object):
         return sig
 
     @staticmethod
-    def VerifySignature(message, signature, public_key):
+    def VerifySignature(message, signature, public_key, unhex=True):
         """
         Verify the integrity of the message.
 
@@ -145,11 +145,11 @@ class Crypto(object):
 
             public_key = pubkey_x + pubkey_y
 
-        m = message
-        try:
-            m = binascii.unhexlify(message)
-        except Exception as e:
-            logger.error("could not get m: %s" % e)
+        if unhex:
+            try:
+                message = binascii.unhexlify(message)
+            except Exception as e:
+                logger.error("could not get m: %s" % e)
 
         if len(public_key) == 33:
             public_key = bitcoin.decompress(public_key)
@@ -157,7 +157,7 @@ class Crypto(object):
 
         try:
             vk = VerifyingKey.from_string(public_key, curve=NIST256p, hashfunc=hashlib.sha256)
-            res = vk.verify(signature, m, hashfunc=hashlib.sha256)
+            res = vk.verify(signature, message, hashfunc=hashlib.sha256)
             return res
         except Exception as e:
             pass
