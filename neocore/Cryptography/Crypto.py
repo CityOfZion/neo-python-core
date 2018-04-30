@@ -134,6 +134,7 @@ class Crypto(object):
             message (str): the message to verify.
             signature (bytearray): the signature belonging to the message.
             public_key (ECPoint|bytes): the public key to use for verifying the signature. If `public_key` is of type bytes then it should be raw bytes (i.e. b'\xAA\xBB').
+            unhex (bool): whether the message should be unhexlified before verifying
 
         Returns:
             bool: True if verification passes. False otherwise.
@@ -206,7 +207,7 @@ class CryptoInstance():
         """
         return Crypto.Sign(message, private_key)
 
-    def VerifySignature(self, message, signature, public_key):
+    def VerifySignature(self, message, signature, public_key, unhex=True):
         """
         Verify the integrity of the message.
 
@@ -214,8 +215,9 @@ class CryptoInstance():
             message (str): the message to verify.
             signature (bytearray): the signature belonging to the message.
             public_key (ECPoint): the public key to use for verifying the signature.
+            unhex (bool): whether the message should be unhexlified before verifying
 
         Returns:
             bool: True if verification passes. False otherwise.
         """
-        return Crypto.VerifySignature(message, signature, public_key)
+        return Crypto.VerifySignature(message, signature, public_key, unhex=True)
