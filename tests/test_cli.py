@@ -25,3 +25,10 @@ class CliTestCase(TestCase):
         scripthash = "0xe9eed8dc39332032dc22e5d6e86332c50327baxx"
         with self.assertRaises(cli.ConversionError):
             address = cli.scripthash_to_address(scripthash)
+
+    def test_create_wallet(self):
+        wallet = cli.create_wallet()
+        self.assertIn("private_key", wallet)
+        self.assertIn("address", wallet)
+        self.assertIsInstance(wallet["private_key"], str)
+        self.assertIsInstance(wallet["address"], str)
