@@ -2,6 +2,11 @@
 History
 =======
 
+0.4.7 (2018-05-30)
+------------------
+* ``BigInteger(0)`` now is ``b'\x00'`` (`PR #50 <https://github.com/CityOfZion/neo-python-core/pull/50>`_)
+
+
 0.4.6 (2018-04-30)
 ------------------
 * make unhexlify in Crypto.VerifySignature optional (`PR #48 <https://github.com/CityOfZion/neo-python-core/pull/48>`_)
