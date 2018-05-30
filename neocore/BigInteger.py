@@ -15,6 +15,9 @@ class BigInteger(int):
         return super(BigInteger, self).__eq__(other)
 
     def ToByteArray(self, signed=True):
+        if self == 0:
+            return b'\x00'
+
         if self < 0:
             return self.to_bytes(1 + ((self.bit_length() + 7) // 8), byteorder='little', signed=True)
 
