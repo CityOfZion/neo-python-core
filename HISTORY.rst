@@ -2,7 +2,12 @@
 History
 =======
 
-0.4.8-dev (work in progress)
+0.4.9-dev (work in progress)
+----------------------------
+* ...
+
+
+0.4.8 (2018-05-31)
 ----------------------------
 * Create wallets with ``np-utils --create-wallet``
 
