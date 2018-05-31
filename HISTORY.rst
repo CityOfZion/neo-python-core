@@ -2,6 +2,11 @@
 History
 =======
 
+0.4.8-dev (work in progress)
+----------------------------
+* Create wallets with ``np-utils --create-wallet``
+
+
 0.4.7 (2018-05-30)
 ------------------
 * ``BigInteger(0)`` now is ``b'\x00'`` (`PR #50 <https://github.com/CityOfZion/neo-python-core/pull/50>`_)

@@ -6,10 +6,14 @@ import sys
 import argparse
 import base58
 import hashlib
+import json
+
+from Crypto import Random
 
 from neocore import __version__
 from neocore.Cryptography.Crypto import Crypto
 from neocore.UInt160 import UInt160
+from neocore.KeyPair import KeyPair
 
 
 class ConversionError(Exception):
@@ -40,6 +44,15 @@ def scripthash_to_address(scripthash):
         raise ConversionError("Wrong format")
 
 
+def create_wallet():
+    private_key = bytes(Random.get_random_bytes(32))
+    keypair = KeyPair(priv_key=private_key)
+    return {
+        "private_key": keypair.Export(),
+        "address": keypair.GetAddress()
+    }
+
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -52,6 +65,8 @@ def main():
 
     parser.add_argument("--scripthash-to-address", nargs=1, metavar="scripthash",
                         help="Convert scripthash to address")
+
+    parser.add_argument("--create-wallet", action="store_true", help="Create a wallet")
 
     args = parser.parse_args()
     if len(sys.argv) == 1:
@@ -74,6 +89,10 @@ def main():
         except ConversionError as e:
             print(e)
             exit(1)
+
+    if args.create_wallet:
+        w = create_wallet()
+        print(json.dumps(w, indent=2))
 
 
 if __name__ == "__main__":
