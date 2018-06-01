@@ -7,10 +7,33 @@ Library for working with NEO related data in Python, without database dependenci
         :target: https://coveralls.io/github/CityOfZion/neo-python-core
 
 
-* Datatypes like ``UInt160``, ``KeyPair``, and basic string to address and address to ``UInt160`` methods
+* Datatypes like ``UInt160``, ``KeyPair``, ``BigInteger`` and basic string to address and address to ``UInt160`` methods
 * Includes a useful cli-tool ``np-utils`` (see help with ``np-utils -h``)
 * Used by `neo-python <https://github.com/CityOfZion/neo-python>`_
 * https://pypi.python.org/pypi/neocore
+
+``np-utils`` examples:
+
+.. code-block:: console
+
+    $ np-utils -h
+    usage: np-utils [-h] [--version] [--address-to-scripthash address]
+                    [--scripthash-to-address scripthash] [--create-wallet]
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    --version             show program's version number and exit
+    --address-to-scripthash address
+                            Convert an address to scripthash
+    --scripthash-to-address scripthash
+                            Convert scripthash to address
+    --create-wallet       Create a wallet
+
+    $ np-utils --create-wallet
+    {
+    "private_key": "KwJqCbjsmGUCqbkp83Nxi9MJ9mA7F8EN4tebJVWjYZBEoWCNxCaF",
+    "address": "AHVvg26CNz1vxteJfeHy4R8P4VN8SydCM6"
+    }
 
 
 Getting started
@@ -19,7 +42,6 @@ Getting started
 You need `Python 3.5 <https://www.python.org/downloads/release/python-354/>`_.
 
 You can install `neocore` from PyPI with ``easy_install`` or ``pip``:
-
 
 .. code-block:: console
 
