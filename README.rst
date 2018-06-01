@@ -9,6 +9,7 @@ Library for working with NEO related data in Python, without database dependenci
 
 * Datatypes like ``UInt160``, ``KeyPair``, ``BigInteger`` and basic string to address and address to ``UInt160`` methods
 * Includes a useful cli-tool ``np-utils`` (see help with ``np-utils -h``)
+* Compatible with Python 3.5+
 * Used by `neo-python <https://github.com/CityOfZion/neo-python>`_
 * https://pypi.python.org/pypi/neocore
 
@@ -39,7 +40,7 @@ Library for working with NEO related data in Python, without database dependenci
 Getting started
 ---------------
 
-You need `Python 3.5 <https://www.python.org/downloads/release/python-354/>`_.
+You need Python 3.5 or higher!
 
 You can install `neocore` from PyPI with ``easy_install`` or ``pip``:
 
