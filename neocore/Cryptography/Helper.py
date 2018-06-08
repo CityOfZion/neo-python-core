@@ -75,7 +75,7 @@ def scripthash_to_address(scripthash):
     sb = bytearray([ADDRESS_VERSION]) + scripthash
     c256 = bin_dbl_sha256(sb)[0:4]
     outb = sb + bytearray(c256)
-    return base58.b58encode(bytes(outb))
+    return base58.b58encode(bytes(outb)).decode("utf-8")
 
 
 def pubkey_to_pubhash(pubkey):
