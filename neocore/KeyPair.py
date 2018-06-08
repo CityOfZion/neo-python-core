@@ -148,7 +148,7 @@ class KeyPair(object):
         # Now check that the address hashes match. If they don't, the password was wrong.
         kp_new = KeyPair(priv_key=private_key)
         kp_new_address = kp_new.GetAddress()
-        kp_new_address_hash_tmp = hashlib.sha256(kp_new_address.encode('utf-8')).digest()
+        kp_new_address_hash_tmp = hashlib.sha256(kp_new_address.encode("utf-8")).digest()
         kp_new_address_hash_tmp2 = hashlib.sha256(kp_new_address_hash_tmp).digest()
         kp_new_address_hash = kp_new_address_hash_tmp2[:4]
         if (kp_new_address_hash != address_hash):
@@ -184,7 +184,7 @@ class KeyPair(object):
         data[34:38] = checksum[0:4]
         b58 = base58.b58encode(bytes(data))
 
-        return b58
+        return b58.decode("utf-8")
 
     def ExportNEP2(self, passphrase):
         """
@@ -200,7 +200,7 @@ class KeyPair(object):
             raise ValueError("Passphrase must have a minimum of 2 characters")
 
         # Hash address twice, then only use the first 4 bytes
-        address_hash_tmp = hashlib.sha256(self.GetAddress().encode('utf-8')).digest()
+        address_hash_tmp = hashlib.sha256(self.GetAddress().encode("utf-8")).digest()
         address_hash_tmp2 = hashlib.sha256(address_hash_tmp).digest()
         address_hash = address_hash_tmp2[:4]
 
@@ -230,4 +230,4 @@ class KeyPair(object):
 
         # Finally, encode with Base58Check
         encrypted_key_nep2 = base58.b58encode_check(bytes(assembled))
-        return encrypted_key_nep2
+        return encrypted_key_nep2.decode("utf-8")
