@@ -2,9 +2,14 @@
 History
 =======
 
-0.4.9-dev (work in progress)
-----------------------------
+0.4.10-dev (work in progress)
+-----------------------------
 * ...
+
+
+0.4.9 (2018-06-08)
+------------------
+* Updated dependencies, especially base58
 
 
 0.4.8 (2018-05-31)

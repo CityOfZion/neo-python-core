@@ -86,7 +86,7 @@ This is a checklist for releasing a new version:
 
 .. code-block:: console
 
-    # In case you want to increase the version number again (eg. scope changed from patch to minor):
+    # Only in case you want to increase the version number again (eg. scope changed from patch to minor):
     bumpversion --no-tag minor|major
 
     # Update ``HISTORY.rst`` with the new version number and the changes and commit this
