@@ -109,8 +109,8 @@ class Fixed8TestCase(TestCase):
         f8 = Fixed8.TryParse(123.123)
         f8 = Fixed8.TryParse(123)
 
-        self.assertEqual(f8, 8)
-        
+        self.assertEqual(f8.Size(), 8)
+
         # with self.assertRaises(Exception):
         self.assertEqual(Fixed8.TryParse("foo"), None)
         self.assertEqual(Fixed8.TryParse(-1, require_positive=True), None)
