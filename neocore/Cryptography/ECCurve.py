@@ -431,6 +431,12 @@ class EllipticCurve:
         def IsInfinity(self):
             return True if self == self.curve.Infinity else False
 
+        def Size(self):
+            if self.IsInfinity:
+                return 1
+            else:
+                return 33
+
         def encode_point(self, compressed=True, endian='little'):
 
             if self.IsInfinity:

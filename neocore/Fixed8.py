@@ -143,3 +143,6 @@ class Fixed8:
 
     def __str__(self):
         return self.ToString()
+
+    def Size(self):
+        return 8
