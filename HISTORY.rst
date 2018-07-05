@@ -2,7 +2,7 @@
 History
 =======
 
-0.4.11 (2018-07-04)
+0.4.11 (2018-07-05)
 -------------------
 * Added ``Size()`` method to `ECPoint` and `Fixed8` class.
 
