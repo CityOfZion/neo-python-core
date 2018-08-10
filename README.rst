@@ -50,7 +50,7 @@ You can install `neocore` from PyPI with ``easy_install`` or ``pip``:
 
 Alternatively, if you want to work on the code, clone this repository and setup your venv:
 
-* Clone the repo: ``git@github.com:CityOfZion/neo-python-core.git``
+* Clone the repo: ``git clone https://github.com/CityOfZion/neo-python-core.git``
 * Create a Python 3 virtual environment and activate it:
 
 .. code-block:: console
