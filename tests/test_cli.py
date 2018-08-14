@@ -18,7 +18,7 @@ class CliTestCase(TestCase):
         address = cli.scripthash_to_address(scripthash)
         self.assertEqual(address, "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
 
-        scripthash = "e9eed8dc39332032dc22e5d6e86332c50327ba23"
+        scripthash = "23ba2703c53263e8d6e522dc32203339dcd8eee9"
         address = cli.scripthash_to_address(scripthash)
         self.assertEqual(address, "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
 
