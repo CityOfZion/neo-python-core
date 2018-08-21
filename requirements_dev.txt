@@ -22,7 +22,7 @@ pluggy==0.7.1
 py==1.5.4
 pycodestyle==2.4.0
 pycparser==2.18
-pyflakes==1.6.0
+pyflakes==2.0.0
 Pygments==2.2.0
 pytz==2017.3
 PyYAML==3.12
