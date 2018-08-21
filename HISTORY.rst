@@ -2,6 +2,12 @@
 History
 =======
 
+0.4.12-dev (in progress)
+------------------------
+* `np-utils --address-to-scripthash` outputs now little-endian and big-endian scripthashes
+* `np-utils --scripthash-to-address` detects input endianness and converts accordingly
+
+
 0.4.11 (2018-07-05)
 -------------------
 * Added ``Size()`` method to `ECPoint` and `Fixed8` class.

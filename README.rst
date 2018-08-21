@@ -36,6 +36,19 @@ Library for working with NEO related data in Python, without database dependenci
     "address": "AHVvg26CNz1vxteJfeHy4R8P4VN8SydCM6"
     }
 
+    $ np-utils --address-to-scripthash AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y
+    Scripthash big endian:  0xe9eed8dc39332032dc22e5d6e86332c50327ba23
+    Scripthash little endian: 23ba2703c53263e8d6e522dc32203339dcd8eee9
+    Scripthash neo-python format: b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'
+
+    $ np-utils --scripthash-to-address 0xe9eed8dc39332032dc22e5d6e86332c50327ba23
+    AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y
+
+    $ np-utils --scripthash-to-address 23ba2703c53263e8d6e522dc32203339dcd8eee9
+    Detected little endian scripthash. Converting to big endian for internal use.
+    Big endian scripthash: 0xe9eed8dc39332032dc22e5d6e86332c50327ba23
+    AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y
+
 
 Getting started
 ---------------

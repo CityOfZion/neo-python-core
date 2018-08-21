@@ -7,6 +7,7 @@ import argparse
 import base58
 import hashlib
 import json
+import binascii
 
 from Crypto import Random
 
@@ -39,6 +40,12 @@ def address_to_scripthash(address):
 
 def scripthash_to_address(scripthash):
     try:
+        if scripthash[0:2] != "0x":
+            # litle endian. convert to big endian now.
+            print("Detected little endian scripthash. Converting to big endian for internal use.")
+            scripthash_bytes = binascii.unhexlify(scripthash)
+            scripthash = "0x%s" % binascii.hexlify(scripthash_bytes[::-1]).decode("utf-8")
+            print("Big endian scripthash:", scripthash)
         return Crypto.ToAddress(UInt160.ParseString(scripthash))
     except Exception as e:
         raise ConversionError("Wrong format")
@@ -77,7 +84,10 @@ def main():
     if args.address_to_scripthash:
         try:
             scripthash = address_to_scripthash(args.address_to_scripthash[0])
-            print('Script Hash: 0x{} -- Python format: {!r}'.format(scripthash[::-1].hex(), scripthash))
+            print("Scripthash big endian:  0x{}".format(scripthash[::-1].hex()))
+            print("Scripthash little endian: {}".format(scripthash.hex(), scripthash))
+            print("Scripthash neo-python format: {!r}".format(scripthash))
+
         except ConversionError as e:
             print(e)
             exit(1)
