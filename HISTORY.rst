@@ -2,10 +2,11 @@
 History
 =======
 
-0.4.12-dev (in progress)
+0.5.0 (2018-08-21)
 ------------------------
 * `np-utils --address-to-scripthash` outputs now little-endian and big-endian scripthashes
 * `np-utils --scripthash-to-address` detects input endianness and converts accordingly
+* Updated dependencies
 
 
 0.4.11 (2018-07-05)
