@@ -229,6 +229,16 @@ class BigIntegerTestCase(TestCase):
         self.assertIsInstance(b3, BigInteger)
         self.assertEqual(b3, 1000000)
 
+    def test_big_integer_div2(self):
+        b1 = BigInteger(41483775933600000000)
+        b2 = BigInteger(414937759336)
+
+        b3 = b1 / b2
+        b4 = b1 // b2
+        self.assertIsInstance(b3, BigInteger)
+        self.assertEqual(b3, 99975899)
+        self.assertEqual(b4, b3)
+
     def test_big_integer_float(self):
         b1 = BigInteger(5505.001)
         b2 = BigInteger(55055.999)
