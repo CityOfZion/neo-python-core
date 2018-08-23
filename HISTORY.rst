@@ -2,8 +2,13 @@
 History
 =======
 
-0.5.1-dev (in progress)
+0.5.2-dev (in progress)
 -----------------------
+*
+
+
+0.5.1 (2018-08-23)
+------------------
 * Change BigInteger divisor operation to use floordiv rather than truediv
 
 
