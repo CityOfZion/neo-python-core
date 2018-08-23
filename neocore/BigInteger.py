@@ -51,7 +51,7 @@ class BigInteger(int):
         return BigInteger(super(BigInteger, self).__floordiv__(*args, **kwargs))
 
     def __truediv__(self, *args, **kwargs):  # real signature unknown
-        return BigInteger(super(BigInteger, self).__truediv__(*args, **kwargs))
+        return BigInteger(super(BigInteger, self).__floordiv__(*args, **kwargs))
 
 
 ZERO = BigInteger(0)

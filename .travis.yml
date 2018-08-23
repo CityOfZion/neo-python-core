@@ -27,7 +27,7 @@ script:
   - git clone https://github.com/CityOfZion/neo-python.git
   - cd neo-python
   - git checkout origin/development -b development
-  - pip install -r requirements.txt
+  - pip install -e .
   - yes | pip uninstall neocore
   - pip install -e ../
   - python -m unittest discover neo

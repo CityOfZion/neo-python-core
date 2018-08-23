@@ -4,7 +4,7 @@ History
 
 0.5.1-dev (in progress)
 -----------------------
-* ...
+* Change BigInteger divisor operation to use floordiv rather than truediv
 
 
 0.5.0 (2018-08-21)
