@@ -60,7 +60,7 @@ class Fixed8:
                 val = int(value)
             except Exception as e:
                 pass
-        if val:
+        if val is not None:
 
             if require_positive and val < 0:
                 return None
