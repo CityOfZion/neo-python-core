@@ -2,9 +2,15 @@
 History
 =======
 
-0.5.2-dev (in progress)
+0.5.3-dev (in-progress)
 -----------------------
 *
+
+
+0.5.2 (2018-08-28)
+------------------
+* `Fixed8.TryParse` fix for zero
+* Updated dependencies
 
 
 0.5.1 (2018-08-23)
