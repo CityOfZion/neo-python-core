@@ -31,7 +31,9 @@ class UIntBase(SerializableMixin):
         return len(self.Data)
 
     def GetHashCode(self):
-        return int.from_bytes(self.Data[:4], 'little')
+        """uint32 identifier"""
+        slice_length = 4 if len(self.Data) >= 4 else len(self.Data)
+        return int.from_bytes(self.Data[:slice_length], 'little')
 
     def Serialize(self, writer):
         writer.WriteBytes(self.Data)
@@ -69,6 +71,8 @@ class UIntBase(SerializableMixin):
 
         if self.Data == other.Data:
             return True
+
+        return False
 
     def __hash__(self):
         return self.__hash

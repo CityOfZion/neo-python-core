@@ -461,6 +461,12 @@ class UIntBaseTestCase(TestCase):
         self.assertTrue(u1 >= u_smaller)
         self.assertTrue(u1 > u_smaller)
 
+    def test_hash_code(self):
+        x = UIntBase(num_bytes=4, data=bytearray.fromhex('DEADBEEF'))
+        self.assertEqual(x.GetHashCode(), 4022250974)
+        x = UIntBase(num_bytes=2, data=bytearray.fromhex('1122'))
+        self.assertEqual(x.GetHashCode(), 8721)
+
 
 class UInt160TestCase(TestCase):
     def test_initialization(self):
