@@ -2,9 +2,9 @@
 History
 =======
 
-0.5.3-dev (in-progress)
+0.5.3 2019-10-02
 -----------------------
-*
+* Updated the dependencies
 
 
 0.5.2 (2018-08-28)
