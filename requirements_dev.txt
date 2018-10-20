@@ -3,7 +3,7 @@ argh==0.26.2
 asn1crypto==0.24.0
 Babel==2.6.0
 bumpversion==0.5.3
-certifi==2018.8.24
+certifi==2018.10.15
 cffi==1.11.5
 chardet==3.0.4
 coverage==4.5.1
