@@ -53,6 +53,12 @@ class BigInteger(int):
     def __truediv__(self, *args, **kwargs):  # real signature unknown
         return BigInteger(super(BigInteger, self).__floordiv__(*args, **kwargs))
 
+    def __rshift__(self, *args, **kwargs):
+        return BigInteger(super(BigInteger, self).__rshift__(*args, **kwargs))
+
+    def __lshift__(self, *args, **kwargs):
+        return BigInteger(super(BigInteger, self).__lshift__(*args, **kwargs))
+
 
 ZERO = BigInteger(0)
 ONE = BigInteger(1)

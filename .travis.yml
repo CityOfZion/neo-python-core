@@ -2,47 +2,48 @@
 language: python
 
 python:
-  - 3.6
+- 3.6
 
 addons:
-  apt:
-    packages:
-    - libleveldb-dev
-    - libsqlite3-dev
+    apt:
+        packages:
+        - libleveldb-dev
+        - libsqlite3-dev
 
 install:
-  - pip install -r requirements.txt
-  - pip install -r requirements_dev.txt
-  - pip install coveralls
+- pip install -r requirements.txt
+- pip install -r requirements_dev.txt
+- pip install coveralls
 
 env:
-  - SKIP_DEPS_CHECK=1
+- SKIP_DEPS_CHECK=1
 
 script:
-  # run internal tests
-  - coverage run --omit neocore/Cryptography/ECCurve.py --source neocore setup.py test
-  - pycodestyle neocore tests
+# run internal tests
+- coverage run --omit neocore/Cryptography/ECCurve.py --source neocore setup.py test
+- pycodestyle neocore tests
 
-  # now test the upstream neo-python dev branch with the current neocore code
-  - git clone https://github.com/CityOfZion/neo-python.git
-  - cd neo-python
-  - git checkout origin/development -b development
-  - pip install -e .
-  - yes | pip uninstall neocore
-  - pip install -e ../
-  - python -m unittest discover neo
-  - cd ..
+# now test the upstream neo-python dev branch with the current neocore code
+- git clone https://github.com/ixje/neo-python.git
+- cd neo-python
+- git checkout origin/wallet_fixtures -b wallet_fixtures
+- pip install -e .
+- yes | pip uninstall neocore neo-boa
+- pip install git+https://github.com/ixje/neo-boa@wallet_fixtures
+- pip install -e ../
+- python -m unittest discover neo
+- cd ..
 
 after_success:
- - coveralls
+- coveralls
 
 deploy:
-  true:
-    tags: true
-    python: 3.6
-    repo: CityOfZion/neo-python-core
-  distributions: sdist bdist_wheel
-  password:
-    secure: hGu/hIRPKLyd0+oKhw0GnJ1lULAcK4gx0gvYjL2Kn8frwlb8AlcRXNJKfb4LYAxMdUp29DoTmIIdnI2K5rkKWjkaTbGaHbq5ZBcRqfMuZjMAhnpAsHKbOUrfzFYkpllo9QCyI0Dn9hFczMkWA2ZplmU8EEkxrJen2FEWkGmt2qbU6dQ7WVde1GSEixgK1wbrDbpw1UtqHLZlDzPAPs18Drp5ftCkKKbz9Yhy5xzdBnsdFiiAp1YxIG8t+86ni4r+imUbP4GFtaqlpBaXzRgTMKVfB1dcNCv2n0wnhtHWs1I9jOqLHP0NCLDClzeIiMUOEBcVnWMqPo9cLj4eYy+16mzuUwAiI2XV1nGtXELASGCRVai4az41AblxgHnVZax1/qb+aroa6yJk4F+LWS8frDuYhv/ihx1dH+0pDybb1ZZPMv7Bh1lYoaqKg1F9oiU+AMTFrkRKtGOrqPe8U1Q1JLLYiXstVWOnLS6iMSoIRy4bk+TeoXShTcwE4pW8CmEFkyLxOn3syzJX6dRoo1+h1GHuI16mWpbNs86HH5dzmqOimUjpWFS881ClxrVJ+SKiY8rGvl+oAuln5Mpbh1z3c+pNDCTzTwSEiZdaRCEGh9O8jRNkfNQ6fEt3uGMtbs8jZkeg8oemD4/SqRMJdNrgMY3lyoUPxco68ZoNorIhTN8=
-  provider: pypi
-  user: CityOfZion
+    true:
+        tags: true
+        python: 3.6
+        repo: CityOfZion/neo-python-core
+    distributions: sdist bdist_wheel
+    password:
+        secure: hGu/hIRPKLyd0+oKhw0GnJ1lULAcK4gx0gvYjL2Kn8frwlb8AlcRXNJKfb4LYAxMdUp29DoTmIIdnI2K5rkKWjkaTbGaHbq5ZBcRqfMuZjMAhnpAsHKbOUrfzFYkpllo9QCyI0Dn9hFczMkWA2ZplmU8EEkxrJen2FEWkGmt2qbU6dQ7WVde1GSEixgK1wbrDbpw1UtqHLZlDzPAPs18Drp5ftCkKKbz9Yhy5xzdBnsdFiiAp1YxIG8t+86ni4r+imUbP4GFtaqlpBaXzRgTMKVfB1dcNCv2n0wnhtHWs1I9jOqLHP0NCLDClzeIiMUOEBcVnWMqPo9cLj4eYy+16mzuUwAiI2XV1nGtXELASGCRVai4az41AblxgHnVZax1/qb+aroa6yJk4F+LWS8frDuYhv/ihx1dH+0pDybb1ZZPMv7Bh1lYoaqKg1F9oiU+AMTFrkRKtGOrqPe8U1Q1JLLYiXstVWOnLS6iMSoIRy4bk+TeoXShTcwE4pW8CmEFkyLxOn3syzJX6dRoo1+h1GHuI16mWpbNs86HH5dzmqOimUjpWFS881ClxrVJ+SKiY8rGvl+oAuln5Mpbh1z3c+pNDCTzTwSEiZdaRCEGh9O8jRNkfNQ6fEt3uGMtbs8jZkeg8oemD4/SqRMJdNrgMY3lyoUPxco68ZoNorIhTN8=
+    provider: pypi
+    user: CityOfZion

@@ -307,6 +307,14 @@ class BigIntegerTestCase(TestCase):
         self.assertEqual(str(b1), "1")
         self.assertEqual(b3 // b2, 1)
 
+        right_shift = b3 >> b1
+        self.assertEqual(right_shift, 1)
+        self.assertIsInstance(right_shift, BigInteger)
+
+        left_shift = b1 << b3
+        self.assertEqual(left_shift, 8)
+        self.assertIsInstance(left_shift, BigInteger)
+
 
 class UIntBaseTestCase(TestCase):
     def test_initialization(self):
