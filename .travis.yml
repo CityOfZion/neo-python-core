@@ -24,12 +24,12 @@ script:
 - pycodestyle neocore tests
 
 # now test the upstream neo-python dev branch with the current neocore code
-- git clone https://github.com/ixje/neo-python.git
+- git clone https://github.com/CityOfZion/neo-python.git
 - cd neo-python
-- git checkout origin/wallet_fixtures -b wallet_fixtures
+- git checkout origin/development -b development
 - pip install -e .
 - yes | pip uninstall neocore neo-boa
-- pip install git+https://github.com/ixje/neo-boa@wallet_fixtures
+- pip install git+https://github.com/CityOfZion/neo-boa@development
 - pip install -e ../
 - python -m unittest discover neo
 - cd ..
