@@ -11,7 +11,7 @@ addons:
         - libsqlite3-dev
 
 install:
-- pip install -r requirements.txt
+- pip install -e .
 - pip install -r requirements_dev.txt
 - pip install coveralls
 
