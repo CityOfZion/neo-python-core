@@ -3,5 +3,5 @@ bitcoin==1.1.42
 ecdsa==0.13
 logzero==1.5.0
 mpmath==1.0.0
-pycryptodome==3.6.6
+pycryptodome==3.7.0
 scrypt==0.8.6
