@@ -4,7 +4,9 @@ History
 
 0.5.4-dev in progress
 ---------------------
-* ...
+* Updated `BigInteger` to properly support logical shifts
+* Added tests for `np-utils`
+* Updated dependencies
 
 
 0.5.3 2019-10-02
