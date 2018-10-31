@@ -2,7 +2,7 @@
 History
 =======
 
-0.5.4-dev in progress
+0.5.4 2019-10-31
 ---------------------
 * Updated `BigInteger` to properly support logical shifts
 * Added tests for `np-utils`
