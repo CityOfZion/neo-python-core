@@ -13,7 +13,7 @@ flake8==3.6.0
 idna==2.7
 imagesize==1.1.0
 Jinja2==2.10
-MarkupSafe==1.0
+MarkupSafe==1.1.0
 mccabe==0.6.1
 mock==2.0.0
 pathtools==0.1.2
