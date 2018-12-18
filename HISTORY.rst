@@ -2,14 +2,20 @@
 History
 =======
 
-0.5.4 2019-10-31
----------------------
+0.5.5 2018-12-18
+----------------
+* Updated dependencies
+* Added ``isValidPublicAddress()`` to utility module
+
+
+0.5.4 2018-10-31
+----------------
 * Updated `BigInteger` to properly support logical shifts
 * Added tests for `np-utils`
 * Updated dependencies
 
 
-0.5.3 2019-10-02
+0.5.3 2018-10-02
 ----------------
 * Updated the dependencies
 
