@@ -17,6 +17,7 @@ install:
 
 env:
 - SKIP_DEPS_CHECK=1
+- NEOPYTHON_UNITTEST=1
 
 script:
 # run internal tests
