@@ -2,6 +2,12 @@
 History
 =======
 
+0.5.6 2018-12-18
+----------------
+* Updated dependencies
+* Added ``SafeReadBytes`` to ``BinaryReader``
+
+
 0.5.5 2018-12-18
 ----------------
 * Updated dependencies

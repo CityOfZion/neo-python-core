@@ -128,6 +128,13 @@ class BinaryReaderTestCase(TestCase):
         result = reader.ReadVarInt()
         self.assertEqual(result, 0)
 
+    def test_saferead(self):
+        self.assertNotEqual(len(get_br(b"1234").ReadBytes(10)), 10)
+        with self.assertRaises(ValueError) as context:
+            get_br(b"1234").SafeReadBytes(10)
+        self.assertIn("Not enough data available", str(context.exception))
+        self.assertEqual(len(get_br(b"\x01\x02\x03\x04\x05\x06\x07\x08").SafeReadBytes(8)), 8)
+
 
 class BinaryWriterTestCase(TestCase):
     def test_various(self):

@@ -74,6 +74,22 @@ class BinaryReader(object):
         value = self.stream.read(length)
         return value
 
+    def SafeReadBytes(self, length):
+        """
+        Read exactly `length` number of bytes from the stream.
+
+        Raises:
+            ValueError is not enough data
+
+        Returns:
+            bytes: `length` number of bytes
+        """
+        data = self.ReadBytes(length)
+        if len(data) < length:
+            raise ValueError("Not enough data available")
+        else:
+            return data
+
     def ReadBool(self):
         """
         Read 1 byte as a boolean value from the stream.
