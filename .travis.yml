@@ -16,8 +16,7 @@ install:
 - pip install coveralls
 
 env:
-- SKIP_DEPS_CHECK=1
-- NEOPYTHON_UNITTEST=1
+- SKIP_DEPS_CHECK=1 NEOPYTHON_UNITTEST=1
 
 script:
 # run internal tests
