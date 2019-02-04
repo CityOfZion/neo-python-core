@@ -7,9 +7,9 @@ certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
 coverage==4.5.2
-cryptography==2.4.2
+cryptography==2.5
 docutils==0.14
-flake8==3.6.0
+flake8==3.7.4
 idna==2.8
 imagesize==1.1.0
 Jinja2==2.10
@@ -18,11 +18,11 @@ mccabe==0.6.1
 mock==2.0.0
 pathtools==0.1.2
 pluggy==0.8.1
-pbr==5.1.1
+pbr==5.1.2
 py==1.7.0
-pycodestyle==2.4.0
+pycodestyle==2.5.0
 pycparser==2.19
-pyflakes==2.0.0
+pyflakes==2.1.0
 Pygments==2.3.1
 pytz==2018.9
 PyYAML==4.2b4
@@ -33,5 +33,5 @@ Sphinx==1.8.3
 sphinxcontrib-websupport==1.1.0
 tox==3.7.0
 urllib3==1.24.1
-virtualenv==16.2.0
+virtualenv==16.3.0
 watchdog==0.9.0
