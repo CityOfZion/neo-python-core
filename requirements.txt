@@ -4,4 +4,4 @@ ecdsa==0.13
 logzero==1.5.0
 mpmath==1.1.0
 pycryptodome==3.7.3
-scrypt==0.8.11
+scrypt==0.8.13
