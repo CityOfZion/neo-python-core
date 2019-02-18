@@ -4,7 +4,7 @@ asn1crypto==0.24.0
 Babel==2.6.0
 bumpversion==0.5.3
 certifi==2018.11.29
-cffi==1.12.0
+cffi==1.12.1
 chardet==3.0.4
 coverage==4.5.2
 cryptography==2.5
