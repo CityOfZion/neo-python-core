@@ -5,8 +5,6 @@ Description:
 Usage:
     from neocore.Cryptography.Helper import *
 """
-
-from bitcoin import *
 import os
 import time
 import random
@@ -17,6 +15,14 @@ import base58
 long = int
 
 ADDRESS_VERSION = 23
+
+
+def random_key():
+    # Gotta be secure after that java.SecureRandom fiasco...
+    entropy = str(os.urandom(32)) + str(random.randrange(2 ** 256)) + str(int(time.time() * 1000000))
+    binary_data = bytes(entropy, 'utf-8')
+    x = hashlib.sha256(binary_data).digest()
+    return binascii.hexlify(x)
 
 
 def double_sha256(ba):

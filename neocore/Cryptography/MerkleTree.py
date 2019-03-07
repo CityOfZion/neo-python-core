@@ -1,3 +1,4 @@
+import sys
 from .Crypto import *
 from neocore.UInt256 import UInt256
 
