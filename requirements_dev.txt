@@ -3,10 +3,10 @@ argh==0.26.2
 asn1crypto==0.24.0
 Babel==2.6.0
 bumpversion==0.5.3
-certifi==2018.11.29
+certifi==2019.3.9
 cffi==1.12.2
 chardet==3.0.4
-coverage==4.5.2
+coverage==4.5.3
 cryptography==2.6.1
 docutils==0.14
 flake8==3.7.7
@@ -25,11 +25,11 @@ pycparser==2.19
 pyflakes==2.1.1
 Pygments==2.3.1
 pytz==2018.9
-PyYAML==5.1b3
+PyYAML==5.1b5
 requests==2.21.0
 six==1.12.0
 snowballstemmer==1.2.1
-Sphinx==1.8.4
+Sphinx==1.8.5
 sphinxcontrib-websupport==1.1.0
 tox==3.7.0
 urllib3==1.24.1
