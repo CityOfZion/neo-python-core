@@ -12,8 +12,6 @@ import inspect
 import struct
 import binascii
 
-from logzero import logger
-
 from neocore.UInt160 import UInt160
 from neocore.UInt256 import UInt256
 
@@ -279,12 +277,12 @@ class BinaryWriter(object):
             value (UInt160):
 
         Raises:
-            Exception: when `value` is not of neocore.UInt160 type.
+            TypeError: when `value` is not of neocore.UInt160 type.
         """
         if type(value) is UInt160:
             value.Serialize(self)
         else:
-            raise Exception("value must be UInt160 instance ")
+            raise TypeError("Value must be UInt160 instance.")
 
     def WriteUInt256(self, value):
         """
@@ -294,12 +292,12 @@ class BinaryWriter(object):
             value (UInt256):
 
         Raises:
-            Exception: when `value` is not of neocore.UInt256 type.
+            TypeError: when `value` is not of neocore.UInt256 type.
         """
         if type(value) is UInt256:
             value.Serialize(self)
         else:
-            raise Exception("Cannot write value that is not UInt256")
+            raise TypeError("Value must be UInt256 instance.")
 
     def WriteVarInt(self, value, endian="<"):
         """
@@ -310,18 +308,18 @@ class BinaryWriter(object):
             value (int):
             endian (str): specify the endianness. (Default) Little endian ('<'). Use '>' for big endian.
 
-        Raises:
-            TypeError: if `value` is not of type int.
-            Exception: if `value` is < 0.
-
         Returns:
             int: the number of bytes written.
+
+        Raises:
+            TypeError: if `value` is not of type int.
+            ValueError: if `value` is < 0.
         """
         if not isinstance(value, int):
-            raise TypeError('%s not int type.' % value)
+            raise TypeError(f'{value} not int type.')
 
         if value < 0:
-            raise Exception('%d too small.' % value)
+            raise ValueError(f'{value} too small.')
 
         elif value < 0xfd:
             return self.WriteByte(value)
@@ -381,11 +379,14 @@ class BinaryWriter(object):
         Args:
             value (str): value to write to the stream.
             length (int): length of the string to write.
+
+        Raises:
+            ValueError: if the input `value` length is longer than the fixed `length`
         """
         towrite = value.encode('utf-8')
         slen = len(towrite)
         if slen > length:
-            raise Exception("string longer than fixed length: %s " % length)
+            raise ValueError(f"String '{value}' length is longer than fixed length: {length}")
         self.WriteBytes(towrite)
         diff = length - slen
 
@@ -431,7 +432,6 @@ class BinaryWriter(object):
         for item in arr:
             ba = bytearray(binascii.unhexlify(item))
             ba.reverse()
-            #            logger.info("WRITING HASH %s " % ba)
             self.WriteBytes(ba)
 
     def WriteFixed8(self, value, unsigned=False):

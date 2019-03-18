@@ -53,12 +53,12 @@ class Fixed8:
         val = None
         try:
             val = float(value)
-        except Exception as e:
+        except Exception:
             pass
         if not val:
             try:
                 val = int(value)
-            except Exception as e:
+            except Exception:
                 pass
         if val is not None:
 

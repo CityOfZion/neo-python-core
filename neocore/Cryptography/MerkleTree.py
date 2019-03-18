@@ -76,9 +76,12 @@ class MerkleTree(object):
 
         Returns:
             MerkleTreeNode: the root node.
+
+        Raises:
+            ValueError: if the length of `leaves` is < 1
         """
         if len(leaves) < 1:
-            raise Exception('Leaves must have length')
+            raise ValueError('Leaves must have length')
         if len(leaves) == 1:
             return leaves[0]
 
@@ -115,9 +118,12 @@ class MerkleTree(object):
 
         Returns:
             bytes: the root hash.
+
+        Raises:
+            ValueError: if the `hashes` array is empty
         """
         if not len(hashes):
-            raise Exception('Hashes must have length')
+            raise ValueError('Hashes must have length')
         if len(hashes) == 1:
             return hashes[0]
 
@@ -157,7 +163,6 @@ class MerkleTree(object):
         Args:
             flags: "0000" for trimming, any other value for keeping the nodes.
         """
-        logger.info("Trimming!")
         flags = bytearray(flags)
         length = 1 << self.Depth - 1
         while len(flags) < length:

@@ -8,6 +8,17 @@ class UIntBase(SerializableMixin):
     __hash = None
 
     def __init__(self, num_bytes, data=None):
+        """
+        Create an instance.
+
+        Args:
+            num_bytes: (int) the length of data in bytes
+            data: (bytes, bytearray; optional) the raw data
+
+        Raises:
+            ValueError: if the input `num_bytes` != the length of the input `data`
+            TypeError: if the input `data` is not bytes or bytearray
+        """
         super(UIntBase, self).__init__()
 
         if data is None:
@@ -15,14 +26,14 @@ class UIntBase(SerializableMixin):
 
         else:
             if len(data) != num_bytes:
-                raise Exception("Invalid UInt: data length {} != specified num_bytes {}".format(len(data), num_bytes))
+                raise ValueError("Invalid UInt: data length {} != specified num_bytes {}".format(len(data), num_bytes))
 
             if type(data) is bytes:
                 self.Data = bytearray(data)
             elif type(data) is bytearray:
                 self.Data = data
             else:
-                raise Exception("Invalid format")
+                raise TypeError(f"{type(data)} is invalid")
 
         self.__hash = self.GetHashCode()
 
@@ -81,14 +92,21 @@ class UIntBase(SerializableMixin):
         return self.ToString()
 
     def CompareTo(self, other):
+        """
+        Compare with another UIntBase
+
+        Raises:
+            TypeError: if the input `other` is not UIntBase
+            ValueError: if the length of `self` != length of the input `other`
+        """
         if not isinstance(other, UIntBase):
-            raise Exception('Cannot compare %s to type %s' % (type(self).__name__, type(other).__name__))
+            raise TypeError('Cannot compare %s to type %s' % (type(self).__name__, type(other).__name__))
 
         x = self.ToArray()
         y = other.ToArray()
 
         if len(x) != len(y):
-            raise Exception('Cannot compare %s with length %s to %s with length %s' % (type(self).__name__, len(x), type(other).__name__, len(y)))
+            raise ValueError('Cannot compare %s with length %s to %s with length %s' % (type(self).__name__, len(x), type(other).__name__, len(y)))
 
         length = len(x)
 

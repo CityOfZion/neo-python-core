@@ -146,11 +146,11 @@ def base256_encode(n, minwidth=0):  # int/long to byte array
         n (int): input value.
         minwidth: minimum return value length.
 
-    Raises:
-        ValueError: if a negative number is provided.
-
     Returns:
         bytearray:
+
+    Raises:
+        ValueError: if a negative number is provided for `n`.
     """
     if n > 0:
         arr = []

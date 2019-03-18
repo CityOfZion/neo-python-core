@@ -10,7 +10,6 @@ import struct
 import binascii
 import importlib
 
-from logzero import logger
 from neocore.Fixed8 import Fixed8
 from neocore.UInt160 import UInt160
 from neocore.UInt256 import UInt256
@@ -43,23 +42,17 @@ class BinaryReader(object):
         """
         return struct.unpack(fmt, self.stream.read(length))[0]
 
-    def ReadByte(self, do_ord=True):
+    def ReadByte(self):
         """
         Read a single byte.
 
-        Args:
-            do_ord (bool): (default True) convert the byte to an ordinal first.
-
         Returns:
-            bytes: a single byte if successful. 0 (int) if an exception occurred.
+            bytes: a single byte if successful.
+
+        Raises:
+            ValueError: if there is insufficient data
         """
-        try:
-            if do_ord:
-                return ord(self.stream.read(1))
-            return self.stream.read(1)
-        except Exception as e:
-            logger.error("ord expected character but got none")
-        return 0
+        return self.SafeReadBytes(1)
 
     def ReadBytes(self, length):
         """
@@ -78,11 +71,11 @@ class BinaryReader(object):
         """
         Read exactly `length` number of bytes from the stream.
 
-        Raises:
-            ValueError is not enough data
-
         Returns:
             bytes: `length` number of bytes
+
+        Raises:
+            ValueError: if there is insufficient data
         """
         data = self.ReadBytes(length)
         if len(data) < length:
@@ -238,22 +231,26 @@ class BinaryReader(object):
 
         Returns:
             int:
+
+        Raises:
+            ValueError: if the specified `max` number of bytes is exceeded
         """
-        fb = self.ReadByte()
-        if fb is 0:
-            return fb
+        try:
+            fb = self.ReadByte()
+        except ValueError:
+            return 0
         value = 0
-        if hex(fb) == '0xfd':
+        if fb == b'\xfd':
             value = self.ReadUInt16()
-        elif hex(fb) == '0xfe':
+        elif fb == b'\xfe':
             value = self.ReadUInt32()
-        elif hex(fb) == '0xff':
+        elif fb == b'\xff':
             value = self.ReadUInt64()
         else:
-            value = fb
+            value = int.from_bytes(fb, "little")
 
         if value > max:
-            raise Exception("Invalid format")
+            raise ValueError(f"Maximum number of bytes ({max}) exceeded.")
 
         return int(value)
 
@@ -321,15 +318,13 @@ class BinaryReader(object):
         klass = getattr(importlib.import_module(module), klassname)
         length = self.ReadVarInt(max=max)
         items = []
-        #        logger.info("READING ITEM %s %s " % (length, class_name))
-        try:
-            for i in range(0, length):
+        for i in range(0, length):
+            try:
                 item = klass()
                 item.Deserialize(self)
-                #                logger.info("deserialized item %s %s " % ( i, item))
                 items.append(item)
-        except Exception as e:
-            logger.error("Couldn't deserialize %s " % e)
+            except Exception:
+                continue
 
         return items
 

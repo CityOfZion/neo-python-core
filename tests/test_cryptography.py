@@ -109,12 +109,12 @@ class MerkleTreeTestCase(TestCase):
         self.assertEqual(expected_hash, root.ToArray())
 
     def test_computer_root_no_input(self):
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValueError) as context:
             MerkleTree.ComputeRoot([])
         self.assertTrue("Hashes must have length" in str(context.exception))
 
     def test_build_no_leaves(self):
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValueError) as context:
             MerkleTree([]).__Build([])
         self.assertTrue("Leaves must have length" in str(context.exception))
 
@@ -235,6 +235,21 @@ class TestCrypto(TestCase):
         verification_result = Crypto.VerifySignature(b'aabb', keypair_signature, keypair.PublicKey)
         self.assertFalse(verification_result)
 
+    def test_sign_and_verify_str(self):
+        privkey = KeyPair.PrivateKeyFromWIF("L44B5gGEpqEDRS9vVPz7QT35jcBG2r3CZwSwQ4fCewXAhAhqGVpP")
+        keypair = KeyPair(privkey)
+        hashdata = "74657374"
+
+        keypair_signature = Crypto.Sign(hashdata, bytes(keypair.PrivateKey))
+        keypair_signature2 = Crypto.Default().Sign(hashdata, bytes(keypair.PrivateKey))
+        self.assertEqual(keypair_signature, keypair_signature2)
+
+        # verify without unhexing
+        verification_result = Crypto.VerifySignature("test", keypair_signature, keypair.PublicKey, unhex=False)
+        verification_result2 = Crypto.Default().VerifySignature("test", keypair_signature, keypair.PublicKey, unhex=False)
+        self.assertEqual(verification_result, verification_result2)
+        self.assertTrue(verification_result)
+
     def test_script_hash(self):
         # Expected output taken from running: getHash(Buffer.from('abc', 'utf8')).toString('hex')
         # using https://github.com/CityOfZion/neon-wallet-react-native/blob/master/app/api/crypto/index.js
@@ -243,12 +258,10 @@ class TestCrypto(TestCase):
         result = Crypto.Default().Hash160(b'abc')
         self.assertEqual(expected_result, binascii.hexlify(result))
 
-    @patch('neocore.Cryptography.Crypto.logger')
-    def test_faulty_message_param_to_verify_signature(self, mocked_logger):
+    def test_faulty_message_param_to_verify_signature(self):
         faulty_message = bytes.fromhex('aa')  # faulty because the message should be non-raw bytes. i.e. b'aa'
         fake_signature = bytes.fromhex('aabb')  # irrelevant for the test
         fake_pubkey = bytes.fromhex('aabb')  # irrelevant for the test
 
         result = Crypto.VerifySignature(faulty_message, fake_signature, fake_pubkey)
-        self.assertTrue(mocked_logger.error.called)
         self.assertFalse(result)

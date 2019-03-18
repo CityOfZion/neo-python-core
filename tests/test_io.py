@@ -50,16 +50,15 @@ class BinaryReaderTestCase(TestCase):
         self.assertEqual(self.br.unpack("c"), b"A")
 
         b = self.br.ReadByte()
-        self.assertEqual(b, 1)
+        self.assertEqual(b, b'\x01')
 
-        b = self.br.ReadByte(do_ord=False)
+        b = self.br.ReadByte()
         self.assertEqual(b, b"\x02")
 
         bio0 = BytesIO(b"")
         br0 = BinaryReader(bio0)
-        b = br0.ReadByte()
-        self.assertEqual(b, 0)
-        # print("===", b)
+        with self.assertRaises(ValueError):
+            br0.ReadByte()
 
         b = self.br.ReadBool()
         self.assertEqual(b, True)
@@ -99,8 +98,9 @@ class BinaryReaderTestCase(TestCase):
         self.assertEqual(get_br(b"\xfe1234").ReadVarInt(), 875770417)
         self.assertEqual(get_br(b"\xff12345678").ReadVarInt(), 4050765991979987505)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError) as context:
             self.assertEqual(get_br(b"\xfd1234").ReadVarInt(max=12848), 12849)
+            self.assertIn("Maximum number of bytes (12848) exceeded.", context)
 
     def test_Read2000256List(self):
         val = b"1" * 64
@@ -240,7 +240,7 @@ class BinaryWriterTestCase(TestCase):
         stream.seek(0)
         self.assertEqual(stream.readline(), b'\x124Vx\x90\x124Vx\x90')
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             bw.WriteUInt160(123)
 
         stream, bw = bw_setup()
@@ -248,13 +248,13 @@ class BinaryWriterTestCase(TestCase):
         stream.seek(0)
         self.assertEqual(stream.readline(), b'\x124Vx\x90\x124Vx\x90\x124Vx\x90\x12')
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             bw.WriteUInt256(123)
 
         with self.assertRaises(TypeError):
             bw.WriteVarInt("x")
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             bw.WriteVarInt(-1)
 
         stream, bw = bw_setup()
@@ -347,6 +347,6 @@ class BinaryWriterTestCase(TestCase):
         stream = BytesIO()
         bw = BinaryWriter.BinaryWriter(stream)
 
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValueError) as context:
             bw.WriteFixedString("abc", 2)
-        self.assertTrue("string longer than fixed length" in str(context.exception))
+        self.assertIn("String 'abc' length is longer than fixed length: 2", str(context.exception))

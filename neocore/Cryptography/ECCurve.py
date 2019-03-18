@@ -8,7 +8,6 @@ Usage:
 import random
 import binascii
 from mpmath.libmp import bitcount as _bitlength
-from logzero import logger
 
 modpow = pow
 
@@ -49,8 +48,18 @@ def randbytes(n):
 
 
 def next_random_integer(size_in_bits):
+    """
+    Args:
+        size_in_bits (int): used to specify the size in bits of the random integer
+
+    Returns:
+        int: random integer
+
+    Raises:
+        ValueError: if the specified size in bits is < 0
+    """
     if size_in_bits < 0:
-        raise Exception('size in bits must be greater than zero')
+        raise ValueError(f'size in bits ({size_in_bits}) must be greater than zero')
     if size_in_bits == 0:
         return 0
 
@@ -65,9 +74,17 @@ def next_random_integer(size_in_bits):
 
 
 def _lucas_sequence(n, P, Q, k):
-    """Return the modular Lucas sequence (U_k, V_k, Q_k).
-    Given a Lucas sequence defined by P, Q, returns the kth values for
-    U and V, along with Q^k, all modulo n.
+    """
+    Returns:
+        The modular Lucas sequence (U_k, V_k, Q_k).
+        Given a Lucas sequence defined by P, Q, returns the kth values for
+        U and V, along with Q^k, all modulo n.
+
+    Raises:
+        ValueError:
+            if n is < 2
+            if k < 0
+            if D == 0
     """
     D = P * P - 4 * Q
     if n < 2:
@@ -145,10 +162,14 @@ def _lucas_sequence(n, P, Q, k):
 
 
 def sqrtCQ(val, CQ):
+    """
+    Raises:
+        LegendaireExponentError: if modpow(val, legendreExponent, CQ) != 1
+    """
     if test_bit(CQ, 1):
         z = modpow(val, (CQ >> 2) + 1, CQ)
         zsquare = (z * z) % CQ
-        if (z * z) % CQ == val:
+        if zsquare == val:
             return z
         else:
             return None
@@ -156,8 +177,7 @@ def sqrtCQ(val, CQ):
     qMinusOne = CQ - 1
     legendreExponent = qMinusOne >> 1
     if modpow(val, legendreExponent, CQ) != 1:
-        logger.error("legendaire exponent error")
-        return None
+        raise LegendaireExponentError()
 
     u = qMinusOne >> 2
     k = (u << 1) + 1
@@ -183,6 +203,11 @@ def sqrtCQ(val, CQ):
             return V
 
     return None
+
+
+class LegendaireExponentError(Exception):
+    """Provide user friendly feedback in case of a legendaire exponent error."""
+    pass
 
 
 class FiniteField:
@@ -248,7 +273,11 @@ class FiniteField:
             return self.field.sqrt(self, flag)
 
         def sqrtCQ(self, CQ):
-            return self.field.sqrtCQ(self, CQ)
+            try:
+                res = self.field.sqrtCQ(self, CQ)
+            except LegendaireExponentError:
+                res = None
+            return res
 
         def inverse(self):
             return self.field.inverse(self)
@@ -287,6 +316,9 @@ class FiniteField:
     def sqrt(self, val, flag):
         """
         calculate the square root modulus p
+
+        Raises:
+            ValueError: if self.p % 8 == 1
         """
         if val.iszero():
             return val
@@ -300,7 +332,7 @@ class FiniteField:
             else:
                 res = (4 * val) ** ((self.p - 5) / 8) * 2 * val
         else:
-            raise Exception("modsqrt non supported for (p%8)==1")
+            raise ValueError("modsqrt non supported for (p%8)==1")
 
         if res.value % 2 == flag:
             return res
@@ -570,9 +602,17 @@ class EllipticCurve:
         return self.point(x, ysquare.sqrt(flag))
 
     def decode_from_reader(self, reader):
+        """
+        Raises:
+            NotImplementedError: if an unsupported point encoding is used
+            TypeError: if unexpected encoding is read
+        """
+        try:
+            f = reader.ReadByte()
+        except ValueError:
+            return self.Infinity
 
-        f = reader.ReadByte()
-
+        f = int.from_bytes(f, "little")
         if f == 0:
             return self.Infinity
 
@@ -589,10 +629,15 @@ class EllipticCurve:
         elif f == 4 or f == 6 or f == 7:
             raise NotImplementedError()
 
-        raise Exception("Invalid point incoding: %s " % f)
+        raise ValueError(f"Invalid point encoding: {f}")
 
     def decode_from_hex(self, hex_str, unhex=True):
-
+        """
+        Raises:
+            ValueError: if the hex_str is an incorrect length for encoding or compressed encoding
+            NotImplementedError: if an unsupported point encoding is used
+            TypeError: if unexpected encoding is read
+        """
         ba = None
         if unhex:
             ba = bytearray(binascii.unhexlify(hex_str))
@@ -611,7 +656,7 @@ class EllipticCurve:
         # these are compressed
         if f == 2 or f == 3:
             if len(ba) != expected_byte_len + 1:
-                raise Exception("Incorrrect length for encoding")
+                raise ValueError("Incorrect length for encoding")
             yTilde = f & 1
             data = bytearray(ba[1:])
             data.reverse()
@@ -623,7 +668,7 @@ class EllipticCurve:
         elif f == 4:
 
             if len(ba) != (2 * expected_byte_len) + 1:
-                raise Exception("Incorrect length for compressed encoding")
+                raise ValueError("Incorrect length for compressed encoding")
 
             x_data = bytearray(ba[1:1 + expected_byte_len])
             x_data.reverse()
@@ -643,7 +688,7 @@ class EllipticCurve:
             raise NotImplementedError()
 
         else:
-            raise Exception("Invalid point incoding: %s " % f)
+            raise ValueError(f"Invalid point encoding: {f}")
 
     def decompress_from_curve(self, x, flag):
         """
@@ -656,7 +701,10 @@ class EllipticCurve:
 
         ysquare = x ** 3 + self.a * x + self.b
 
-        ysquare_root = sqrtCQ(ysquare.value, cq)
+        try:
+            ysquare_root = sqrtCQ(ysquare.value, cq)
+        except LegendaireExponentError:
+            ysquare_root = None
 
         bit0 = 0
         if ysquare_root % 2 is not 0:
@@ -785,8 +833,8 @@ class ECDSA:
         x2 = self.crack1(r, s2, m2, secret)
 
         if x1 != x2:
-            logger.info("x1= %s" % x1)
-            logger.info("x2= %s" % x2)
+            print("x1= %s" % x1)
+            print("x2= %s" % x2)
 
         return (secret, x1)
 
@@ -817,6 +865,9 @@ class ECDSA:
     def decode_secp256r1(str, unhex=True, check_on_curve=True):
         """
         decode a public key on the secp256r1 curve
+
+        Raises:
+            ValueError: if input `str` could not be decoded
         """
 
         GFp = FiniteField(int("FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16))
@@ -829,7 +880,7 @@ class ECDSA:
             if point.isoncurve():
                 return ECDSA(GFp, point, int("FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC", 16))
             else:
-                raise Exception("Could not decode string")
+                raise ValueError(f"Could not decode string: {str}")
 
         return ECDSA(GFp, point, int("FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC", 16))
 

@@ -114,7 +114,6 @@ class Fixed8TestCase(TestCase):
         zero = Fixed8.TryParse(0)
         self.assertEqual(zero, Fixed8(0))
 
-        # with self.assertRaises(Exception):
         self.assertEqual(Fixed8.TryParse("foo"), None)
         self.assertEqual(Fixed8.TryParse(-1, require_positive=True), None)
 
@@ -339,11 +338,11 @@ class UIntBaseTestCase(TestCase):
         self.assertEqual(hash(u1), 6513249)
 
     def test_initialization_with_invalid_datalen(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             UIntBase(3, bytearray(b'abcd'))
 
     def test_initialization_with_invalid_datatype(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             UIntBase(3, 'abc')
 
     def test_size(self):
@@ -438,17 +437,17 @@ class UIntBaseTestCase(TestCase):
     def test_compareto_invalid_datatype(self):
         u1 = UIntBase(20, b'12345678901234567890')
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             self.assertEqual(u1.CompareTo('asd'), 0)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             self.assertEqual(u1.CompareTo(b'asd'), 0)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(TypeError):
             self.assertEqual(u1.CompareTo(123), 0)
 
         # Cannot compare uints with different lengths
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             a = UInt256(b'12345678901234567890123456789012')
             b = UIntBase(20, b'12345678901234567890')
             a.CompareTo(b)
@@ -485,8 +484,8 @@ class UInt160TestCase(TestCase):
         self.assertEqual(hash(u1), 875770417)
 
     def test_initialization_invalid_length(self):
-        with self.assertRaises(Exception):
-            u1 = UInt160(b'12345')
+        with self.assertRaises(ValueError):
+            UInt160(b'12345')
 
     def test_parse(self):
         string = '0xd7678dd97c000be3f33e9362e673101bac4ca654'
@@ -500,8 +499,9 @@ class UInt160TestCase(TestCase):
         self.assertEqual(uint160.ToString(), string)
 
         string = '5b7074e873973a6ed3708862f219a6fbf4d1c41'
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValueError) as context:
             uint160 = UInt160.ParseString(string)
+            self.assertIn(f"Invalid UInt160 input: {len(string)} chars != 40 chars", context)
 
 
 class UInt256TestCase(TestCase):
@@ -513,11 +513,11 @@ class UInt256TestCase(TestCase):
         self.assertEqual(hash(u1), 875770417)
 
     def test_initialization_invalid(self):
-        with self.assertRaises(Exception):
-            u1 = UInt256(b'12345')
+        with self.assertRaises(ValueError):
+            UInt256(b'12345')
 
-        with self.assertRaises(Exception):
-            u1 = UInt256('12345678901234567890123456789012')
+        with self.assertRaises(TypeError):
+            UInt256('12345678901234567890123456789012')
 
     def test_parse(self):
         string = '0xcedb5c4e24b1f6fc5b239f2d1049c3229ad5ed05293c696b3740dc236c3f41b4'
@@ -531,5 +531,6 @@ class UInt256TestCase(TestCase):
         self.assertEqual(uint256.ToString(), string)
 
         string = '9410bd44beb7d6febc9278b028158af2781fcfb40cf2c6067b3525d24eff19f'
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValueError) as context:
             uint256 = UInt256.ParseString(string)
+            self.assertIn(f"Invalid UInt256 input: {len(string)} chars != 64 chars", context)

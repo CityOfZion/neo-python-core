@@ -45,6 +45,11 @@ class KeyPair(object):
 
         Args:
             priv_key (bytes): a private key.
+
+        Raises:
+            ValueError:
+                if the input `priv_key` length is not 32, 96, or 104
+                if the input `priv_key` length is 32 but the public key still could not be determined
         """
         self.setup_curve()
 
@@ -60,8 +65,8 @@ class KeyPair(object):
         if length == 32:
             try:
                 pubkey_encoded_not_compressed = bitcoin.privkey_to_pubkey(priv_key)
-            except Exception as e:
-                raise Exception("Could not determine public key")
+            except Exception:
+                raise ValueError("Could not determine public key")
 
         elif length == 96 or length == 104:
             skip = length - 96
@@ -87,6 +92,12 @@ class KeyPair(object):
 
         Returns:
             bytes: The private key
+
+        Raises:
+            ValueError:
+                if the input `wif` length != 52
+                if the input `wif` has an invalid format
+                if the input `wif` has an invalid checksum
         """
         if wif is None or len(wif) is not 52:
             raise ValueError('Please provide a wif with a length of 52 bytes (LEN: {0:d})'.format(len(wif)))
@@ -116,6 +127,12 @@ class KeyPair(object):
 
         Returns:
             bytes: The private key
+
+        Raises:
+            ValueError:
+                if the input `nep2_key` length != 58
+                if the input `nep2_key` is invalid
+                if the input `passphrase` is wrong
         """
         if not nep2_key or len(nep2_key) != 58:
             raise ValueError('Please provide a nep2_key with a length of 58 bytes (LEN: {0:d})'.format(len(nep2_key)))
@@ -125,7 +142,7 @@ class KeyPair(object):
 
         try:
             decoded_key = base58.b58decode_check(nep2_key)
-        except Exception as e:
+        except Exception:
             raise ValueError("Invalid nep2_key")
 
         address_hash = decoded_key[ADDRESS_HASH_OFFSET:ADDRESS_HASH_OFFSET + ADDRESS_HASH_SIZE]
@@ -195,6 +212,9 @@ class KeyPair(object):
 
         Returns:
             str: The NEP-2 encrypted private key
+
+        Raises:
+            ValueError: if the input `passphrase` length is < 2
         """
         if len(passphrase) < 2:
             raise ValueError("Passphrase must have a minimum of 2 characters")

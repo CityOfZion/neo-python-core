@@ -7,10 +7,16 @@ class UInt256(UIntBase):
 
     @staticmethod
     def ParseString(value):
+        """
+        Parse the input str `value` into UInt256
+
+        Raises:
+            ValueError: if the input `value` length (after '0x' if present) != 64
+        """
         if value[0:2] == '0x':
             value = value[2:]
         if not len(value) == 64:
-            raise Exception("Invalid UInt256 Format: %s chars != 64 chars" % len(value))
+            raise ValueError(f"Invalid UInt256 input: {len(value)} chars != 64 chars")
         reversed_data = bytearray.fromhex(value)
         reversed_data.reverse()
         return UInt256(data=reversed_data)

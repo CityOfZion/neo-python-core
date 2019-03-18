@@ -1,6 +1,5 @@
 import bitcoin
 from ecdsa import NIST256p, VerifyingKey
-from logzero import logger
 from .Helper import *
 from neocore.UInt160 import UInt160
 from .ECCurve import EllipticCurve
@@ -108,7 +107,7 @@ class Crypto(object):
         Sign the message with the given private key.
 
         Args:
-            message (str): message to be signed
+            message (hexstr): message to be signed
             private_key (str): 32 byte key as a double digit hex string (e.g. having a length of 64)
         Returns:
             bytearray: the signature of the message.
@@ -131,7 +130,7 @@ class Crypto(object):
         Verify the integrity of the message.
 
         Args:
-            message (str): the message to verify.
+            message (hexstr or str): the message to verify.
             signature (bytearray): the signature belonging to the message.
             public_key (ECPoint|bytes): the public key to use for verifying the signature. If `public_key` is of type bytes then it should be raw bytes (i.e. b'\xAA\xBB').
             unhex (bool): whether the message should be unhexlified before verifying
@@ -149,8 +148,8 @@ class Crypto(object):
         if unhex:
             try:
                 message = binascii.unhexlify(message)
-            except Exception as e:
-                logger.error("could not get m: %s" % e)
+            except binascii.Error:
+                pass
         elif isinstance(message, str):
             message = message.encode('utf-8')
 
@@ -162,7 +161,7 @@ class Crypto(object):
             vk = VerifyingKey.from_string(public_key, curve=NIST256p, hashfunc=hashlib.sha256)
             res = vk.verify(signature, message, hashfunc=hashlib.sha256)
             return res
-        except Exception as e:
+        except Exception:
             pass
 
         return False
