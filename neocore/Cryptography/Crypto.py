@@ -112,6 +112,7 @@ class Crypto(object):
         Returns:
             bytearray: the signature of the message.
         """
+        Crypto.SetupSignatureCurve()
 
         hash = hashlib.sha256(binascii.unhexlify(message)).hexdigest()
 

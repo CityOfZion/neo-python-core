@@ -265,3 +265,35 @@ class TestCrypto(TestCase):
 
         result = Crypto.VerifySignature(faulty_message, fake_signature, fake_pubkey)
         self.assertFalse(result)
+
+
+class TestSigningWithoutCryptoInstance(TestCase):
+    def setUp(self):
+        import bitcoin
+        # reset Elliptic curve parameters to secp256k1
+        bitcoin.change_curve(bitcoin.P, bitcoin.N, bitcoin.A, bitcoin.B, bitcoin.Gx, bitcoin.Gy)
+
+    sig1 = None
+
+    def test_normal_signing(self):
+        # test the normal order of operations: Keypair will initialize secp256r1 Elliptic curve parameters
+        message = binascii.hexlify(b'Hello World')
+        key = KeyPair(bytes.fromhex('8631cd2635c416ba5f043561e9d2ff40b79c3bb2eb245e176615298b8372d0a4'))
+        signature = Crypto.Sign(message, '8631cd2635c416ba5f043561e9d2ff40b79c3bb2eb245e176615298b8372d0a4')
+
+        self.assertTrue(Crypto.VerifySignature(message, signature, key.PublicKey))
+        TestSigningWithoutCryptoInstance.sig1 = signature.hex()
+
+    sig2 = None
+
+    def test_sign_before_KeyPair(self):
+        # test signing prior to initializing secp256r1 Elliptic curve parameters with Keypair
+        message = binascii.hexlify(b'Hello World')
+        signature = Crypto.Sign(message, '8631cd2635c416ba5f043561e9d2ff40b79c3bb2eb245e176615298b8372d0a4')
+        key = KeyPair(bytes.fromhex('8631cd2635c416ba5f043561e9d2ff40b79c3bb2eb245e176615298b8372d0a4'))
+
+        self.assertTrue(Crypto.VerifySignature(message, signature, key.PublicKey))
+        TestSigningWithoutCryptoInstance.sig2 = signature.hex()
+
+        # ensure the signatures are identical
+        self.assertEqual(TestSigningWithoutCryptoInstance.sig1, TestSigningWithoutCryptoInstance.sig2)
