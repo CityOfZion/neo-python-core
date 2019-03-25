@@ -76,7 +76,6 @@ class BinaryReaderTestCase(TestCase):
         self.assertEqual(get_br(b"12345678").ReadInt64(), 4050765991979987505)
         self.assertEqual(get_br(b"12345678").ReadUInt64(), 4050765991979987505)
 
-        self.assertEqual(get_br(b"\xfd1234abc").ReadVarBytes(), b"34abc")
         self.assertEqual(get_br(b"\x03234").ReadString(), b"234")
         self.assertEqual(get_br(b"\x03123").ReadVarString(), b"123")
         self.assertEqual(get_br(b"abc").ReadFixedString(2), b"ab")
@@ -134,6 +133,12 @@ class BinaryReaderTestCase(TestCase):
             get_br(b"1234").SafeReadBytes(10)
         self.assertIn("Not enough data available", str(context.exception))
         self.assertEqual(len(get_br(b"\x01\x02\x03\x04\x05\x06\x07\x08").SafeReadBytes(8)), 8)
+
+    def test_readvarbytes_insufficient_data(self):
+        """expect 1 byte, have 0"""
+        with self.assertRaises(ValueError) as context:
+            get_br(b"\xfd\x01\x00").ReadVarBytes()
+        self.assertIn("Not enough data available", str(context.exception))
 
 
 class BinaryWriterTestCase(TestCase):

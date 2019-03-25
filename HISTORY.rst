@@ -2,6 +2,15 @@
 History
 =======
 
+0.5.7-dev
+---------
+* Updated dependencies
+* Remove `bitcoin` import from `Crypto` exposing confusing functions
+* Remove `logzero` dependency and throw exceptions instead of logging them
+* Cleanup some docstrings and code
+* `ReadVarBytes` now uses `SafeReadBytes` internally
+
+
 0.5.6 2018-12-18
 ----------------
 * Updated dependencies

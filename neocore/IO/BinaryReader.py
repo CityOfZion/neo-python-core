@@ -262,11 +262,14 @@ class BinaryReader(object):
         Args:
             max (int): (Optional) maximum number of bytes to read.
 
+        Raises:
+            ValueError: if the amount of bytes indicated by the variable int cannot be read
+
         Returns:
             bytes:
         """
         length = self.ReadVarInt(max)
-        return self.ReadBytes(length)
+        return self.SafeReadBytes(length)
 
     def ReadString(self):
         """
