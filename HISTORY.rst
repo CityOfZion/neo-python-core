@@ -5,10 +5,11 @@ History
 0.5.7-dev
 ---------
 * Updated dependencies
-* Remove `bitcoin` import from `Crypto` exposing confusing functions
-* Remove `logzero` dependency and throw exceptions instead of logging them
-* Cleanup some docstrings and code
-* `ReadVarBytes` now uses `SafeReadBytes` internally
+* Remove `logzero` dependency and throw exceptions instead of logging them `#169 <https://github.com/CityOfZion/neo-python-core/pull/169>`_
+* Cleanup some docstrings and code `#169 <https://github.com/CityOfZion/neo-python-core/pull/169>`_
+* Remove `bitcoin` import from `Crypto` exposing confusing functions `#170 <https://github.com/CityOfZion/neo-python-core/pull/170>`_
+* Fix curve initialization for `Sign()` in `Crypto` module `#177 <https://github.com/CityOfZion/neo-python-core/pull/177>`_
+* `ReadVarBytes` now uses `SafeReadBytes` internally `#178 <https://github.com/CityOfZion/neo-python-core/pull/178>`_
 
 
 0.5.6 2018-12-18
