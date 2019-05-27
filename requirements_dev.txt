@@ -1,7 +1,7 @@
 alabaster==0.7.12
 argh==0.26.2
 asn1crypto==0.24.0
-Babel==2.6.0
+Babel==2.7.0
 bumpversion==0.5.3
 certifi==2019.3.9
 cffi==1.12.2
