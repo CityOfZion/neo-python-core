@@ -23,7 +23,7 @@ py==1.8.0
 pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
-Pygments==2.3.1
+Pygments==2.4.2
 pytz==2018.9
 PyYAML==5.1
 requests==2.21.0
