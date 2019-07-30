@@ -8,7 +8,7 @@ cffi==1.12.2
 chardet==3.0.4
 coverage==4.5.3
 cryptography==2.6.1
-docutils==0.14
+docutils==0.15.2
 flake8==3.7.7
 idna==2.8
 imagesize==1.1.0
